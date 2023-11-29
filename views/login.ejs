@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <input type="submit" value="Login">
+  </form>
+
+  <script>
+    $('#loginForm').submit(async function(e) {
+      e.preventDefault();
+      const username = $('#username').val();
+      const password = $('#password').val();
+
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        //alert("TOKEN OK!!");
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        alert("TOKEN: " + data.token);
+        console.log("TOKEN: " , data.token);
+        window.location.href = '/home';
+      } else {
+        alert('Errore di login');
+      }
+    });
+  </script>
+</body>
+</html>

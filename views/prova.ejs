@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pagina Qualsiasi</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Pagina Qualsiasi</h1>
+    <p>Questa pagina invia un token al server quando viene caricata.</p>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var token = localStorage.getItem('token');
+
+      if (!token) {
+        console.error('Nessun token fornito.');
+        alert("TOKEN:NON FORNITO " + token);
+        return;
+      }else{
+        alert("TOKEN:NON FORNITO " + token);
+      }
+
+      $.ajax({
+        url: '/protected',
+        method: 'GET',
+        headers: {
+          'x-access-token': token
+        },
+        success: function(data) {
+          console.log('Dati ricevuti:', data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.error('Errore:', textStatus, errorThrown);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
