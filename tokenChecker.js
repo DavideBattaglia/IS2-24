@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const tokenChecker = function(req, res, next) {
 	
 	// check header or url parameters or post parameters for token
-	var token = req.body.token || req.query.token || req.headers['x-access-token'] ||  req.headers['authorization'];
+	var token = req.body.token || req.query.token || req.headers['x-access-token'] ||  req.headers['Authorization'];
 	console.log("tokenChecherTOP_token: ", token);
 	// if there is no token
 	if (!token) {
