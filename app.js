@@ -6,7 +6,6 @@ const path = require('path');
 const cors = require('cors');
 const tokenChecker = require('./tokenChecker.js')
 
-
 dotenv.config();
 
 const app = express();
