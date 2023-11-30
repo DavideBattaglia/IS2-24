@@ -32,6 +32,10 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
+app.get('/index', (req, res) => {
+  res.render('index');
+});
+
 app.get('/prova', (req, res) => {
   res.render('prova');
 });
@@ -72,8 +76,12 @@ app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected'); // Modifica req.user a req.loggedUser
 });
 */
+/*
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
+});*/
+app.get('/protected', tokenChecker, (req, res) => {
+  res.json({ success: true, message: 'Accesso consentito!', user: req.loggedUser });
 });
 
 app.listen(port, () => {
