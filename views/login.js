@@ -17,7 +17,7 @@ function performLogin() {
         if (data.token) {
             // Salva il token nel localStorage
             localStorage.setItem('token', data.token);
-            alert('token login.js' + data.token);
+            alert('token login.js: ' + data.token);
             console.log('Login riuscito. Token salvato nel localStorage.');
         } else {
             console.error('Login fallito. Nessun token ricevuto.');

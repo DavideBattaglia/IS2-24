@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 const tokenChecker = require('./tokenChecker.js')
+const mongoose = require('./config/db'); // Importa il modulo di configurazione del database
+const User = require('./models/user'); // Importa il modello utente
 
 dotenv.config();
 
@@ -48,27 +50,48 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-app.post('/register', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username e password richiesti' });
-  }
+app.post('/register', async (req, res) => {
+  try {
+      const { username, password } = req.body;
+      if (!username || !password) {
+          return res.status(400).json({ message: 'Username e password richiesti' });
+      }
 
-  const user = { username, password };
-  users.push(user);
-  res.status(201).json({ message: 'Utente registrato con successo' });
+      // Controlla se l'utente esiste già nel database
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+          return res.status(400).json({ message: 'Username già in uso' });
+      }
+
+      // Crea un nuovo utente utilizzando il modello User
+      const newUser = new User({ username, password });
+      await newUser.save();
+
+      res.status(201).json({ message: 'Utente registrato con successo' });
+  } catch (error) {
+      console.error('Errore nella registrazione dell\'utente:', error);
+      res.status(500).json({ message: 'Errore nella registrazione dell\'utente' });
+  }
 });
 
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find(u => u.username === username && u.password === password);
+app.post('/login', async (req, res) => {
+  try {
+      const { username, password } = req.body;
 
-  if (!user) {
-    return res.status(401).json({ message: 'Credenziali non valide' });
+      // Cerca l'utente nel database
+      const user = await User.findOne({ username, password });
+
+      if (!user) {
+          return res.status(401).json({ message: 'Credenziali non valide' });
+      }
+
+      // Genera un token JWT e lo invia come risposta
+      const token = jwt.sign({ username: user.username }, secretKey);
+      res.json({ token });
+  } catch (error) {
+      console.error('Errore nel login:', error);
+      res.status(500).json({ message: 'Errore nel login' });
   }
-
-  const token = jwt.sign({ username: user.username }, secretKey);
-  res.json({ token });
 });
 
 /*
@@ -76,14 +99,15 @@ app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected'); // Modifica req.user a req.loggedUser
 });
 */
-/*
+
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
-});*/
-app.get('/protected', tokenChecker, (req, res) => {
-  res.json({ success: true, message: 'Accesso consentito!', user: req.loggedUser });
 });
-
+/*
+app.get('/protected', tokenChecker, (req, res) => {
+  res.json({ success: true, message: 'Accesso consentito![SEI NELL AREA PROTETTA]', user: req.loggedUser });
+});
+*/
 app.listen(port, () => {
   console.log(`Server in ascolto sulla porta ${port}`);
 });
