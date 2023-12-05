@@ -1,4 +1,4 @@
-// main.js
+// index.js
 
 const token = localStorage.getItem('token');
 console.log('TOKEN main.js:', token);

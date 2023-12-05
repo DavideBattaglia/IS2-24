@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('./config/db');
 const loginRoute = require('./routes/loginRoute');
 const registerRoute = require('./routes/registerRoute');
+const protectedRoute = require('./routes/protectedRoute');
 const tokenChecker = require('./middleware/tokenChecker');
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
@@ -24,15 +25,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
+app.use('/protected', protectedRoute);
+
 
 // Your other routes here...
 app.get('/index', (req, res) => {
   res.render('index');
 });
-
+/*
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
-});
+});*/
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
