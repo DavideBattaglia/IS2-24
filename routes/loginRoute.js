@@ -7,6 +7,10 @@ const User = require('../models/user');
 const router = express.Router();
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
+router.get('/', (req, res) => {
+  res.render('login');
+});
+
 router.post('/', async (req, res) => {
   try {
     const { username, password } = req.body;
