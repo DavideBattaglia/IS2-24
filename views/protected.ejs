@@ -9,7 +9,10 @@
 <body>
     <h1>Welcome to the Protected Page</h1>
     <p>Ciao, <%= user.username %></p>
-    <script>
-    </script>
+    <button class="routeButton" data-route="/shoes">Visualizza Scarpe</button>
+    <button class="routeButton" data-route="/addshoes">Aggiungi Scarpe</button>
+    
+    <!-- Importa lo script JavaScript esterno -->
+    <script src="/js/fetch.js"></script>
 </body>
 </html>

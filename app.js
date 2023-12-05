@@ -6,6 +6,7 @@ const mongoose = require('./config/db');
 const loginRoute = require('./routes/loginRoute');
 const registerRoute = require('./routes/registerRoute');
 const protectedRoute = require('./routes/protectedRoute');
+const shoeRoute = require('./routes/shoeRoute');
 const tokenChecker = require('./middleware/tokenChecker');
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/protected', protectedRoute);
+app.use('/route/shouse', shoeRoute);
 
 
 // Your other routes here...
