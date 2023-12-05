@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
 const tokenChecker = function(req, res, next) {
 	
@@ -17,6 +18,13 @@ const tokenChecker = function(req, res, next) {
 	// decode token, verifies secret and checks exp
 	jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {			
 		if (err) {
+			if (err.name === 'TokenExpiredError') {
+				console.log('Token scaduto');
+			} else if (err.name === 'JsonWebTokenError') {
+				console.log('Errore di JWT:', err.message);
+			} else {
+				console.log('Altro tipo di errore durante la verifica del token:', err.message);
+			}
 			return res.status(403).send({
 				success: false,
 				message: 'Failed to authenticate token.'

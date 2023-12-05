@@ -1,7 +1,7 @@
 // main.js
 
 const token = localStorage.getItem('token');
-
+console.log('TOKEN main.js:', token);
 // Assicurati che il token sia presente prima di effettuare la richiesta
 if (token) {
     // Esegui la richiesta GET alla rotta protetta con il token nell'header
@@ -31,5 +31,5 @@ if (token) {
     // Token non presente, gestisci la situazione come desideri
     console.error('Token non presente. Effettuare l\'accesso.');
     // Esempio: Reindirizza l'utente alla pagina di accesso
-    window.location.href = '/login';
+    //window.location.href = '/login';
 }
