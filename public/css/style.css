@@ -1,0 +1,48 @@
+/* Reset del margin e del padding per il body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Stile del titolo */
+h1 {
+    text-align: center;
+    color: #3498db;
+    margin-top: 30px;
+}
+
+/* Stile del container della tabella */
+.table-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ecf0f1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Stile della tabella */
+.shoe-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.shoe-table th, .shoe-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.shoe-table th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.shoe-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.shoe-table tbody tr:hover {
+    background-color: #ecf0f1;
+}
