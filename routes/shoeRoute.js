@@ -9,7 +9,7 @@ router.get('/', tokenChecker, async (req, res) => {
   try {
     const shoes = await Shoe.find();
     res.json(shoes);
-    
+    console.log('scarperrr');
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
