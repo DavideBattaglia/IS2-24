@@ -63,6 +63,11 @@ function handleDelete(shoeId) {
     });
 }
 
+function handleEdit(shoeId) {
+    // Reindirizza l'utente alla pagina di aggiornamento con l'ID della scarpa come parametro
+    window.location.href = `/modifica/${shoeId}`;
+}
+
 function renderShoes(shoesData) {
     const shoeTableContainer = document.getElementById('shoeTable');
 
@@ -96,6 +101,14 @@ function renderShoes(shoesData) {
                 cell.textContent = shoe[column];
                 shoeRow.appendChild(cell);
             });
+
+            // Aggiungi la cella per il pulsante Modifica
+            const editCell = document.createElement('td');
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Modifica';
+            editButton.addEventListener('click', () => handleEdit(shoe._id));
+            editCell.appendChild(editButton);
+            shoeRow.appendChild(editCell);
 
             // Aggiungi la cella per il pulsante Elimina
             const deleteCell = document.createElement('td');

@@ -9,6 +9,8 @@ const protectedRoute = require('./routes/protectedRoute');
 const shoeRoute = require('./routes/shoeRoute');
 const addShoeRoute = require('./routes/addshoeRoute');
 const deleteShoeRoute = require('./routes/deleteShoeRoute');
+const updateShoeRoute = require('./routes/updateShoeRoute');
+const modificaRoute = require('./routes/modificaRoute'); 
 const tokenChecker = require('./middleware/tokenChecker');
 
 
@@ -34,6 +36,9 @@ app.use('/protected', protectedRoute);
 app.use('/shoe', shoeRoute);
 app.use('/addshoe', addShoeRoute);
 app.use('/deleteShoe', deleteShoeRoute);
+app.use('/updateshoe', updateShoeRoute);
+app.use('/modifica', modificaRoute);
+
 
 // Your other routes here...
 app.get('/index', (req, res) => {
@@ -47,6 +52,7 @@ app.get('/vetrina', (req, res) => {
 app.get('/aggiungi', (req, res) => {
   res.render('aggiungi');
 });
+
 /*
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
