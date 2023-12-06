@@ -32,6 +32,36 @@ if (token) {
     // Esempio: Reindirizza l'utente alla pagina di accesso
     // window.location.href = '/login';
 }
+// ... (Il codice precedente rimane invariato)
+
+// Funzione per la gestione dell'eliminazione
+function handleDelete(shoeId) {
+    // Esegui la richiesta DELETE a /deleteShoe/:shoeId
+    console.log('TOKEN to delete:', token);
+    fetch(`/deleteShoe/${shoeId}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `${token}`,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        console.log('Scarpa eliminata con successo.');
+        // Puoi aggiornare l'interfaccia utente dopo l'eliminazione, ad esempio, ricaricando i dati.
+        // In alternativa, puoi rimuovere la riga della tabella corrispondente senza dover ricaricare tutti i dati.
+        // Esempio: rimuovi la riga con l'ID corrispondente dalla tabella.
+        const deletedRow = document.getElementById(`shoeRow_${shoeId}`);
+        if (deletedRow) {
+            deletedRow.remove();
+        }
+    })
+    .catch(error => {
+        console.error('Errore nell\'eliminazione della scarpa:', error);
+    });
+}
 
 function renderShoes(shoesData) {
     const shoeTableContainer = document.getElementById('shoeTable');
@@ -43,7 +73,7 @@ function renderShoes(shoesData) {
         // Intestazione della tabella
         const tableHeader = document.createElement('thead');
         const headerRow = document.createElement('tr');
-        const headerColumns = ['Marca', 'Modello', 'Descrizione', 'Prezzo'];
+        const headerColumns = ['Marca', 'Modello', 'Descrizione', 'Prezzo', 'Azioni'];
 
         headerColumns.forEach(columnText => {
             const headerCell = document.createElement('th');
@@ -59,12 +89,21 @@ function renderShoes(shoesData) {
 
         shoesData.forEach(shoe => {
             const shoeRow = document.createElement('tr');
+            shoeRow.id = `shoeRow_${shoe._id}`;
 
             ['brand', 'model', 'description', 'price'].forEach(column => {
                 const cell = document.createElement('td');
                 cell.textContent = shoe[column];
                 shoeRow.appendChild(cell);
             });
+
+            // Aggiungi la cella per il pulsante Elimina
+            const deleteCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Elimina';
+            deleteButton.addEventListener('click', () => handleDelete(shoe._id));
+            deleteCell.appendChild(deleteButton);
+            shoeRow.appendChild(deleteCell);
 
             tableBody.appendChild(shoeRow);
         });
@@ -76,27 +115,3 @@ function renderShoes(shoesData) {
         console.error('Dati sulle scarpe non validi.');
     }
 }
-
-/*
-function renderShoes(shoesData) {
-    // Esempio di come potresti utilizzare i dati ricevuti
-    // Ad esempio, puoi creare elementi HTML e aggiungerli al DOM
-    const shoeListContainer = document.getElementById('shoeList');
-
-    if (shoesData && Array.isArray(shoesData)) {
-        const shoeList = document.createElement('ul');
-        
-        shoesData.forEach(shoe => {
-            const shoeItem = document.createElement('li');
-            shoeItem.textContent = `${shoe.brand} - ${shoe.model} - ${shoe.description} - ${shoe.price}`;
-            shoeList.appendChild(shoeItem);
-        });
-
-        // Aggiungi la lista al contenitore
-        shoeListContainer.appendChild(shoeList);
-    } else {
-        console.error('Dati sulle scarpe non validi.');
-    }
-}
-
-*/

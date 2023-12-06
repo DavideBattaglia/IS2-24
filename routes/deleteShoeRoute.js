@@ -6,8 +6,10 @@ const tokenChecker = require('../middleware/tokenChecker');
 
 // Rotta protetta per eliminare una scarpa
 router.delete('/:shoeId', tokenChecker, async (req, res) => {
+  console.log('DELETE Protetta');
+  
   try {
-    const deletedShoe = await Shoe.findByIdAndRemove(req.params.shoeId);
+    const deletedShoe = await Shoe.findOneAndDelete({ _id: req.params.shoeId });
     
     if (!deletedShoe) {
       return res.status(404).json({ message: 'Scarpa non trovata' });

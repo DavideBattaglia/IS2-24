@@ -8,6 +8,7 @@ const registerRoute = require('./routes/registerRoute');
 const protectedRoute = require('./routes/protectedRoute');
 const shoeRoute = require('./routes/shoeRoute');
 const addShoeRoute = require('./routes/addshoeRoute');
+const deleteShoeRoute = require('./routes/deleteShoeRoute');
 const tokenChecker = require('./middleware/tokenChecker');
 
 
@@ -32,7 +33,7 @@ app.use('/register', registerRoute);
 app.use('/protected', protectedRoute);
 app.use('/shoe', shoeRoute);
 app.use('/addshoe', addShoeRoute);
-
+app.use('/deleteShoe', deleteShoeRoute);
 
 // Your other routes here...
 app.get('/index', (req, res) => {
