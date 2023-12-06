@@ -7,7 +7,10 @@ const loginRoute = require('./routes/loginRoute');
 const registerRoute = require('./routes/registerRoute');
 const protectedRoute = require('./routes/protectedRoute');
 const shoeRoute = require('./routes/shoeRoute');
+const addShoeRoute = require('./routes/addshoeRoute');
 const tokenChecker = require('./middleware/tokenChecker');
+
+
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
 const app = express();
@@ -27,12 +30,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);
 app.use('/protected', protectedRoute);
-app.use('/route/shouse', shoeRoute);
+app.use('/shoe', shoeRoute);
+app.use('/addshoe', addShoeRoute);
 
 
 // Your other routes here...
 app.get('/index', (req, res) => {
   res.render('index');
+});
+
+app.get('/vetrina', (req, res) => {
+  res.render('vetrina');
+});
+
+app.get('/aggiungi', (req, res) => {
+  res.render('aggiungi');
 });
 /*
 app.get('/protected', tokenChecker, (req, res) => {

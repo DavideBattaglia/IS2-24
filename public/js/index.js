@@ -1,7 +1,7 @@
 // index.js
 
 const token = localStorage.getItem('token');
-console.log('TOKEN main.js:', token);
+console.log('TOKEN index.js:', token);
 // Assicurati che il token sia presente prima di effettuare la richiesta
 if (token) {
     // Esegui la richiesta GET alla rotta protetta con il token nell'header
