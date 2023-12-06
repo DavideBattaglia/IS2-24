@@ -67,6 +67,7 @@ function handleEdit(shoeId) {
     // Reindirizza l'utente alla pagina di aggiornamento con l'ID della scarpa come parametro
     window.location.href = `/modifica/${shoeId}`;
 }
+// ...
 
 function renderShoes(shoesData) {
     const shoeTableContainer = document.getElementById('shoeTable');
@@ -106,6 +107,7 @@ function renderShoes(shoesData) {
             const editCell = document.createElement('td');
             const editButton = document.createElement('button');
             editButton.textContent = 'Modifica';
+            editButton.classList.add('edit-button'); // Aggiungi classe CSS per stile
             editButton.addEventListener('click', () => handleEdit(shoe._id));
             editCell.appendChild(editButton);
             shoeRow.appendChild(editCell);
@@ -114,6 +116,7 @@ function renderShoes(shoesData) {
             const deleteCell = document.createElement('td');
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Elimina';
+            deleteButton.classList.add('delete-button'); // Aggiungi classe CSS per stile
             deleteButton.addEventListener('click', () => handleDelete(shoe._id));
             deleteCell.appendChild(deleteButton);
             shoeRow.appendChild(deleteCell);
@@ -128,3 +131,6 @@ function renderShoes(shoesData) {
         console.error('Dati sulle scarpe non validi.');
     }
 }
+
+// ...
+

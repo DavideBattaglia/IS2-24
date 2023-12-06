@@ -44,6 +44,8 @@ function executeModification() {
             }
             console.log('Scarpa modificata con successo.');
             // Puoi gestire la risposta come desideri, ad esempio, aggiornando l'interfaccia utente.
+            // Reindirizza l'utente a Vetrina dopo la modifica
+            window.location.href = '/vetrina';
         })
         .catch(error => {
             console.error('Errore nella modifica della scarpa:', error);

@@ -35,8 +35,9 @@ h1 {
 }
 
 .shoe-table th {
-    background-color: #3498db;
+    background-color: #0058a0;
     color: #fff;
+    border-radius: 8px 8px 0 0; /* Arrotonda solo gli angoli superiori */
 }
 
 .shoe-table tbody tr:nth-child(even) {
@@ -45,4 +46,82 @@ h1 {
 
 .shoe-table tbody tr:hover {
     background-color: #ecf0f1;
+}
+
+/* style.css */
+
+/* Altre regole di stile... */
+
+.edit-button,
+.delete-button {
+    border-radius: 5px; /* Arrotonda i bordi */
+    transition: background-color 0.5s, border-radius 0.5s; /* Aggiorna la transizione */
+}
+
+.edit-button {
+    background-color: rgb(186, 112, 0);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #ffa600;
+    border-radius: 8px 8px 0 0; /* Arrotonda solo gli angoli superiori al passaggio del mouse */
+}
+
+.delete-button {
+    background-color: #910a00;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ff0000;
+    border-radius: 0 0 5px 5px; /* Arrotonda solo gli angoli inferiori al passaggio del mouse */
+}
+
+/* Stile per le caselle di testo */
+input[type="text"],
+input[type="number"],
+textarea {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Cambia il carattere del testo */
+}
+
+/* Stile per i pulsanti */
+button {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Colori e transizioni per i pulsanti */
+.edit-button {
+    background-color: #FF9800; /* Colore arancione per il pulsante Modifica */
+    color: #fff; /* Testo bianco */
+    transition: background-color 0.3s; /* Effetto di transizione al passaggio del mouse */
+}
+
+.edit-button:hover {
+    background-color: #FFC107; /* Cambia colore al passaggio del mouse */
+}
+
+.delete-button {
+    background-color: #F44336; /* Colore rosso per il pulsante Elimina */
+    color: #fff; /* Testo bianco */
+    transition: background-color 0.3s; /* Effetto di transizione al passaggio del mouse */
+}
+
+.delete-button:hover {
+    background-color: #D32F2F; /* Cambia colore al passaggio del mouse */
 }
