@@ -45,6 +45,10 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
+app.get('/logout', (req, res) => {
+  res.render('logout');
+});
+
 app.get('/vetrina', (req, res) => {
   res.render('vetrina');
 });
