@@ -1,4 +1,5 @@
 // routes/registerRoute.js
+const bcrypt = require('bcrypt');
 const express = require('express');
 const User = require('../models/user');
 

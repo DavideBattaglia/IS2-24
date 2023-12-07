@@ -16,6 +16,7 @@ function performLogin() {
     .then(data => {
         if (data.token) {
             // Salva il token nel localStorage
+            localStorage.setItem('username', username);
             localStorage.setItem('token', data.token);
             alert('token login.js: ' + data.token);
             console.log('Login riuscito. Token salvato nel localStorage.');
