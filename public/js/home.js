@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         userInfoElement.innerHTML = '<p>Welcome, ' + username + '!</p><p>Your Token is: ' + token + '</p>';
         userInfoElement.classList.add('userLoggedIn'); // Add a class for styling purposes
     } else {
-        // Display a message if token or username is not present
-        userInfoElement.innerHTML = '<p>No user information found</p>';
+        // Display a message and a link to the registration route if the user is not logged in
+        userInfoElement.innerHTML = '<p style="color: red;">Utente non registrato. <a href="/register">Register</a></p>';
     }
 });

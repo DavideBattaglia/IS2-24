@@ -19,20 +19,26 @@ function performLogin() {
             localStorage.setItem('token', data.token);
             alert('token login.js: ' + data.token);
             console.log('Login riuscito. Token salvato nel localStorage.');
+
+            // Reindirizza l'utente alla home dopo il login riuscito
+            window.location.href = '/home';
         } else {
             console.error('Login fallito. Nessun token ricevuto.');
+
+            // Rimuovi il token dal localStorage in caso di credenziali errate
+            localStorage.removeItem('token');
+
+            // Reindirizza l'utente alla home anche in caso di login fallito
+            window.location.href = '/home';
         }
     })
     .catch(error => {
         console.error('Errore durante la richiesta di login:', error);
 
-        // Verifica se la risposta è di tipo JSON prima di parsificarla
-        if (error.headers.get('content-type')?.includes('application/json')) {
-            error.json().then(errorMessage => {
-                console.error('Messaggio di errore JSON ricevuto:', errorMessage);
-            });
-        } else {
-            console.error('Risposta HTML ricevuta:', error);
-        }
+        // Rimuovi il token dal localStorage in caso di errore
+        localStorage.removeItem('token');
+
+        // Reindirizza l'utente alla home in caso di errore
+        window.location.href = '/home';
     });
 }
