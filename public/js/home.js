@@ -1,16 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if token and username are present in localStorage
     var token = localStorage.getItem('token');
     var username = localStorage.getItem('username');
     var userInfoElement = document.getElementById('userInfo');
 
-    // Check if both token and username are present
     if (token && username) {
-        // Display user info in the userInfo div
         userInfoElement.innerHTML = '<p>Welcome, ' + username + '!</p><p>Your Token is: ' + token + '</p>';
-        userInfoElement.classList.add('userLoggedIn'); // Add a class for styling purposes
+        userInfoElement.classList.add('userLoggedIn');
+
+        // Aggiungi un event listener per il pulsante "Visualizza Vetrina Scarpe"
+        var viewShoeStoreButton = document.getElementById('viewShoeStore');
+        viewShoeStoreButton.classList.add('userLoggedIn'); // Aggiungi la classe
+        viewShoeStoreButton.addEventListener('click', function() {
+            // Reindirizza l'utente alla rotta della vetrina delle scarpe
+            window.location.href = '/vetrina';
+        });
+
+        // Aggiungi un event listener per il pulsante "Aggiungi Scarpa"
+        var addShoeButton = document.getElementById('addShoe');
+        addShoeButton.classList.add('userLoggedIn'); // Aggiungi la classe
+        addShoeButton.addEventListener('click', function() {
+            // Reindirizza l'utente alla rotta per aggiungere una scarpa
+            window.location.href = '/aggiungi';
+        });
     } else {
-        // Display a message and a link to the registration route if the user is not logged in
         userInfoElement.innerHTML = '<p style="color: red;">Utente non registrato. <a href="/register">Register</a></p>';
     }
 });

@@ -125,3 +125,53 @@ button {
 .delete-button:hover {
     background-color: #D32F2F; /* Cambia colore al passaggio del mouse */
 }
+/* Aggiungi il tuo stile qui */
+
+/* Stile per i pulsanti */
+/* Aggiungi il tuo stile qui */
+
+/* Stile per i pulsanti */
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(68, 172, 207);
+    color: white;
+    transition: background-color 0.3s; /* Aggiungi un effetto di transizione per una transizione più fluida */
+}
+
+/* Stile per i pulsanti quando l'utente è loggato */
+.userLoggedIn button {
+    background-color: rgb(0, 171, 228);
+    color: white;
+}
+
+/* Stile per i pulsanti quando l'utente non è loggato */
+#viewShoeStore:not(.userLoggedIn) {
+    background-color: #ccc;
+    color: #666;
+}
+
+#viewShoeStore:not(.userLoggedIn):hover,
+#viewShoeStore:not(.userLoggedIn):active {
+    background-color: lightblue;
+}
+
+#addShoe:not(.userLoggedIn) {
+    background-color: #ccc;
+    color: #666666;
+}
+
+#addShoe:not(.userLoggedIn):hover,
+#addShoe:not(.userLoggedIn):active {
+    background-color: lightblue;
+}
+button:hover {
+    background-color: lightblue;
+}
+
+/* Stile per i pulsanti quando il mouse è sopra e l'utente è loggato */
+.userLoggedIn button:hover {
+    background-color: blue;
+}
