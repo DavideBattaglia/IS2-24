@@ -41,8 +41,8 @@ app.use('/modifica', modificaRoute);
 
 
 // Your other routes here...
-app.get('/index', (req, res) => {
-  res.render('index');
+app.get('/home', (req, res) => {
+  res.render('home');
 });
 
 app.get('/vetrina', (req, res) => {
