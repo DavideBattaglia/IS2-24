@@ -13,6 +13,7 @@ const updateShoeRoute = require('./routes/updateShoeRoute');
 const modificaRoute = require('./routes/modificaRoute'); 
 const tokenChecker = require('./middleware/tokenChecker');
 
+const swaggerJsdoc = require('swagger-jsdoc')
 
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
@@ -61,6 +62,25 @@ app.get('/aggiungi', (req, res) => {
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
 });*/
+
+const options = {
+  failOnErrors: true, // Whether or not to throw when parsing errors. Defaults to false.
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Shoe sellings',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./src/routes*.js'], // ,./api.yaml
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+
+app.get('/api-docs.json', (req,res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
