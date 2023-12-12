@@ -87,11 +87,11 @@ app.listen(port, () => {
 
 
 // Termina il server dopo che i test sono stati eseguiti
-if (process.env.NODE_ENV !== 'test') {
+/*if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
-}
+}*/
 
 // Exporta l'app per i test
 module.exports = app;
