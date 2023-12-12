@@ -1,0 +1,94 @@
+[
+    {
+      "brand": "Nike",
+      "model": "Air Max 90",
+      "description": "Scarpe sportive di alta qualità con ammortizzazione avanzata.",
+      "price": 129.99
+    },
+    {
+      "brand": "Adidas",
+      "model": "Superstar",
+      "description": "Sneakers classiche e iconiche con il logo a stella.",
+      "price": 89.99
+    },
+    {
+      "brand": "Puma",
+      "model": "RS-X",
+      "description": "Scarpe da corsa retrò con tecnologia di ammortizzazione avanzata.",
+      "price": 109.99
+    },
+    {
+      "brand": "New Balance",
+      "model": "990v5",
+      "description": "Scarpe da corsa stabili e comode con suola in gomma.",
+      "price": 179.99
+    },
+    {
+      "brand": "Reebok",
+      "model": "Classic Leather",
+      "description": "Sneakers in pelle con un design elegante e confortevole.",
+      "price": 79.99
+    },
+    {
+        "brand": "Adidas",
+        "model": "Ultra Boost",
+        "description": "Scarpe da corsa con ammortizzazione reattiva e tomaia in materiale elastico.",
+        "price": 169.99
+      },
+      {
+        "brand": "Puma",
+        "model": "Cali",
+        "description": "Sneakers con design ispirato agli anni '80, perfette per l'estate.",
+        "price": 79.99
+      },
+      {
+        "brand": "New Balance",
+        "model": "574",
+        "description": "Sneakers classiche e versatili adatte per il tempo libero.",
+        "price": 89.99
+      },
+      {
+        "brand": "Reebok",
+        "model": "Nano X",
+        "description": "Scarpe da allenamento con supporto stabile per sollevamento pesi e crossfit.",
+        "price": 129.99
+      },
+      {
+        "brand": "Under Armour",
+        "model": "Hovr Phantom",
+        "description": "Scarpe da corsa con tecnologia di ammortizzazione UA HOVR per una corsa leggera e reattiva.",
+        "price": 149.99
+      },
+      {
+        "brand": "Vans",
+        "model": "Old Skool",
+        "description": "Sneakers classiche con la caratteristica striscia laterale, perfette per lo stile streetwear.",
+        "price": 64.99
+      },
+      {
+        "brand": "Converse",
+        "model": "Chuck Taylor All Star",
+        "description": "Iconiche scarpe alte con suola in gomma e design senza tempo.",
+        "price": 54.99
+      },
+      {
+        "brand": "Salomon",
+        "model": "Speedcross 5",
+        "description": "Scarpe da trail running con suola antiscivolo e ammortizzazione superiore.",
+        "price": 129.99
+      },
+      {
+        "brand": "Brooks",
+        "model": "Ghost 14",
+        "description": "Scarpe da corsa neutre con un'ammortizzazione morbida e traspirante.",
+        "price": 139.99
+      },
+      {
+        "brand": "Asics",
+        "model": "Gel-Kayano 28",
+        "description": "Scarpe da corsa con supporto avanzato per i corridori che cercano stabilità.",
+        "price": 159.99
+      }
+    
+  ]
+  

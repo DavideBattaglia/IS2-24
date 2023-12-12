@@ -1,0 +1,202 @@
+/* Reset del margin e del padding per il body */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Stile del titolo */
+h1 {
+    text-align: center;
+    color: #3498db;
+    margin-top: 30px;
+}
+
+/* Stile del container della tabella */
+.table-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ecf0f1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Stile della tabella */
+.shoe-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.shoe-table th, .shoe-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #bdc3c7;
+}
+
+.shoe-table th {
+    background-color: #0058a0;
+    color: #fff;
+    border-radius: 8px 8px 0 0; /* Arrotonda solo gli angoli superiori */
+}
+
+.shoe-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.shoe-table tbody tr:hover {
+    background-color: #ecf0f1;
+}
+
+/* style.css */
+
+/* Altre regole di stile... */
+
+.edit-button,
+.delete-button {
+    border-radius: 5px; /* Arrotonda i bordi */
+    transition: background-color 0.5s, border-radius 0.5s; /* Aggiorna la transizione */
+}
+
+.edit-button {
+    background-color: rgb(186, 112, 0);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background-color: #ffa600;
+    border-radius: 8px 8px 0 0; /* Arrotonda solo gli angoli superiori al passaggio del mouse */
+}
+
+.delete-button {
+    background-color: #910a00;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #ff0000;
+    border-radius: 0 0 5px 5px; /* Arrotonda solo gli angoli inferiori al passaggio del mouse */
+}
+
+/* Stile per le caselle di testo */
+input[type="text"],
+input[type="number"],
+textarea {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Cambia il carattere del testo */
+}
+
+/* Stile per i pulsanti */
+button {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Colori e transizioni per i pulsanti */
+.edit-button {
+    background-color: #FF9800; /* Colore arancione per il pulsante Modifica */
+    color: #fff; /* Testo bianco */
+    transition: background-color 0.3s; /* Effetto di transizione al passaggio del mouse */
+}
+
+.edit-button:hover {
+    background-color: #FFC107; /* Cambia colore al passaggio del mouse */
+}
+
+.delete-button {
+    background-color: #F44336; /* Colore rosso per il pulsante Elimina */
+    color: #fff; /* Testo bianco */
+    transition: background-color 0.3s; /* Effetto di transizione al passaggio del mouse */
+}
+
+.delete-button:hover {
+    background-color: #D32F2F; /* Cambia colore al passaggio del mouse */
+}
+/* Aggiungi il tuo stile qui */
+
+/* Stile per i pulsanti */
+/* Aggiungi il tuo stile qui */
+
+/* Stile per i pulsanti */
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(68, 172, 207);
+    color: white;
+    transition: background-color 0.3s; /* Aggiungi un effetto di transizione per una transizione più fluida */
+}
+
+/* Stile per i pulsanti quando l'utente è loggato */
+.userLoggedIn button {
+    background-color: rgb(0, 171, 228);
+    color: white;
+}
+
+/* Stile per i pulsanti quando l'utente non è loggato */
+#viewShoeStore:not(.userLoggedIn) {
+    background-color: #ccc;
+    color: #666;
+}
+
+#viewShoeStore:not(.userLoggedIn):hover,
+#viewShoeStore:not(.userLoggedIn):active {
+    background-color: lightblue;
+}
+
+#addShoe:not(.userLoggedIn) {
+    background-color: #ccc;
+    color: #666666;
+}
+
+#addShoe:not(.userLoggedIn):hover,
+#addShoe:not(.userLoggedIn):active {
+    background-color: lightblue;
+}
+button:hover {
+    background-color: lightblue;
+}
+
+/* Stile per i pulsanti quando il mouse è sopra e l'utente è loggato */
+.userLoggedIn button:hover {
+    background-color: blue;
+}
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #0081a5;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar a {
+    display: block;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}

@@ -1,53 +1,26 @@
-<!-- home.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Home</title>
 </head>
 <body>
-    <h1>Home Page</h1>
+    <%- include('navbar') %>
+    <h1>Welcome to the Home Page</h1>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    const token = localStorage.getItem('token');
+    <div id="userInfo">
+        <!-- User info will be displayed here -->
+    </div>
 
-    if (token) {
-        // Invia il token al server
-        fetch('/protected', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': token,
-            },
-        })
-        
-        .then(response => {
-    if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    window.location.href = '/home';
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('text/html')) {
-        // La risposta è HTML, puoi gestirla qui
-        return response.text(); // o .blob(), .arrayBuffer(), a seconda del tipo di dati
-    } else if (contentType && contentType.includes('application/json')) {
-        // La risposta è JSON, puoi gestirla come prima
-        return response.json();
-    } else {
-        throw new Error('Unsupported response type');
-    }
-})
+    <div>
+        <!-- Aggiungi i tuoi bottoni qui -->
+        <button id="viewShoeStore">Visualizza Vetrina Scarpe</button>
+        <button id="addShoe">Aggiungi Scarpa</button>
+    </div>
 
-    } else {
-        console.error('Token not found in local storage');
-        // Gestisci il caso in cui il token non è presente nel local storage, ad esempio, reindirizzando l'utente
-    }
-});
-
-    </script>
+    <script src="/js/home.js"></script>
 </body>
 </html>

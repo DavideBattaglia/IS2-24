@@ -1,0 +1,33 @@
+<!-- views/aggiungi.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Aggiungi Scarpa</title>
+</head>
+<body>
+  <%- include('navbar') %>
+  <h1>Aggiungi Scarpa</h1>
+  
+  <form action="/addshoe" method="POST">
+    <label for="brand">Marca:</label>
+    <input type="text" id="brand" name="brand" required><br>
+    
+    <label for="model">Modello:</label>
+    <input type="text" id="model" name="model"><br>
+    
+    <label for="description">Descrizione:</label>
+    <textarea id="description" name="description"></textarea><br>
+    
+    <label for="price">Prezzo:</label>
+    <input type="number" id="price" name="price"><br>
+    
+    <button type="button" onclick="addShoe()">Aggiungi Scarpa</button>
+  </form>
+  
+ <!-- Script posizionato alla fine di <body> -->
+  <script src="/js/aggiungi.js"></script>
+</body>
+</html>

@@ -1,89 +1,97 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
-const tokenChecker = require('./tokenChecker.js')
+const mongoose = require('./config/db');
+const loginRoute = require('./routes/loginRoute');
+const registerRoute = require('./routes/registerRoute');
+const protectedRoute = require('./routes/protectedRoute');
+const shoeRoute = require('./routes/shoeRoute');
+const addShoeRoute = require('./routes/addshoeRoute');
+const deleteShoeRoute = require('./routes/deleteShoeRoute');
+const updateShoeRoute = require('./routes/updateShoeRoute');
+const modificaRoute = require('./routes/modificaRoute'); 
+const tokenChecker = require('./middleware/tokenChecker');
 
-dotenv.config();
+const swaggerJsdoc = require('swagger-jsdoc')
 
-const app = express();
-
-const port = 3000;
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
-app.use(express.static('javascript'));//----------------------------------------BOH
+const app = express();
+const port = 3000;
+
+app.use(express.static('javascript'));
 app.use(express.static('views'));
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(cors());
-
-const users = [];
-//default user
-users.push({username: 'a', password: 'a'});
+app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+app.use('/login', loginRoute);
+app.use('/register', registerRoute);
+app.use('/protected', protectedRoute);
+app.use('/shoe', shoeRoute);
+app.use('/addshoe', addShoeRoute);
+app.use('/deleteShoe', deleteShoeRoute);
+app.use('/updateshoe', updateShoeRoute);
+app.use('/modifica', modificaRoute);
+
+
+// Your other routes here...
 app.get('/home', (req, res) => {
   res.render('home');
 });
 
-app.get('/index', (req, res) => {
-  res.render('index');
+app.get('/logout', (req, res) => {
+  res.render('logout');
 });
 
-app.get('/prova', (req, res) => {
-  res.render('prova');
+app.get('/vetrina', (req, res) => {
+  res.render('vetrina');
 });
 
-app.get('/register', (req, res) => {
-  res.render('register');
+app.get('/aggiungi', (req, res) => {
+  res.render('aggiungi');
 });
 
-app.get('/login', (req, res) => {
-  res.render('login');
-});
-
-app.post('/register', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Username e password richiesti' });
-  }
-
-  const user = { username, password };
-  users.push(user);
-  res.status(201).json({ message: 'Utente registrato con successo' });
-});
-
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const user = users.find(u => u.username === username && u.password === password);
-
-  if (!user) {
-    return res.status(401).json({ message: 'Credenziali non valide' });
-  }
-
-  const token = jwt.sign({ username: user.username }, secretKey);
-  res.json({ token });
-});
-
-/*
-app.get('/protected', tokenChecker, (req, res) => {
-  res.render('protected'); // Modifica req.user a req.loggedUser
-});
-*/
 /*
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
 });*/
-app.get('/protected', tokenChecker, (req, res) => {
-  res.json({ success: true, message: 'Accesso consentito!', user: req.loggedUser });
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Shoe sellings',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./src/routes*.js'], // ,./api.yaml
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+
+app.get('/api-docs.json', (req,res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
 });
 
 app.listen(port, () => {
-  console.log(`Server in ascolto sulla porta ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
+
+
+// Termina il server dopo che i test sono stati eseguiti
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
+
+// Exporta l'app per i test
+module.exports = app;
