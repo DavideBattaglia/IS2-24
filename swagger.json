@@ -1,0 +1,71 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+       "version": "1.0",
+       "title": "is2-24",
+       "description": "API for shoe sellings",
+       "license": {
+          "name": "MIT",
+          "url": "https://github.com/apiaryio/polls-api/blob/master/LICENSE"
+       }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "paths": {
+        "/register":{
+
+        },
+        "/login":{
+            
+        },
+        "/home":{
+            
+        },
+        "/vetrina":{
+            
+        },
+        "/aggiungi":{
+            
+        },
+        "/logout":{
+            
+        }
+    },
+    "components": {
+        "schemas": {
+            "user": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "shoe": {
+                "type": "object",
+                "requried": [
+                    "brend",
+                    "model"
+                ],
+                "properties": {
+                    "brand": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+ }
