@@ -87,6 +87,18 @@
                     }
                 }
             },
+            "delete":{
+                "summary": "/vetrina",
+                "description": "rimuovi una scarpa",
+                "responses": {
+                    "200" :{
+                        "description": "cancellazione riuscita"
+                    },
+                    "400" :{
+                        "description": "errore nella cancellazione"
+                    }
+                }
+            },
             "summary": "vetrina"
         },
         "/aggiungi":{
