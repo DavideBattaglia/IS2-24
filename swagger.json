@@ -16,7 +16,29 @@
     ],
     "paths": {
         "/register":{
-
+            "post": {
+                "summary": "/register",
+                "description": "Aggiunge dati registrazione al db",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/user"
+                      }
+                    }
+                  },
+                  "description": "user da creare"
+                },
+                "responses": {
+                  "201": {
+                    "description": "User registered successfully"
+                  },
+                  "400": {
+                    "description": "user o pwd richiesti"
+                  }
+                }
+              },
+              "summary": "registrazione"
         },
         "/login":{
             
