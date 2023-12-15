@@ -78,13 +78,53 @@
             
         },
         "/vetrina":{
-            
+            "get":{
+                "summary": "/vetrina",
+                "description": "visualizzza tutte le scarpe",
+                "responses":{
+                    "500":{
+                        "description": "errore nella visualizzazione"
+                    }
+                }
+            },
+            "summary": "vetrina"
         },
         "/aggiungi":{
-            
+            "post":{
+                "summary":"/aggiongi",
+                "description": "posta scarpa",
+                "requestBody": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/shoe"
+                        }
+                      }
+                    },
+                    "description": "scarpa da postare"
+                  },
+                  "responses": {
+                    "201":{
+                        "description":"scarpa inserita correttamente"
+                    },
+                    "500": {
+                      "description": "errore nell'inserimento"
+                    }
+                  }
+            },
+            "summary":"aggiunta scarpa"
         },
         "/logout":{
-            
+            "get": {
+                "summary": "/v1/auth/logout",
+                "description": "Cancella dati sessione e visualizza pagina home",
+                "responses": {
+                  "200": {
+                    "description": "Logout effettuato."
+                  }
+                }
+              },
+              "summary": "Logout"
         }
     },
     "components": {
