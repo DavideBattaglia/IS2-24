@@ -116,7 +116,7 @@
         },
         "/logout":{
             "get": {
-                "summary": "/v1/auth/logout",
+                "summary": "/logout",
                 "description": "Cancella dati sessione e visualizza pagina home",
                 "responses": {
                   "200": {
