@@ -71,12 +71,12 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: ['./src/routes*.js'], // ,./api.yaml
+  apis: ['./src/routes*.js','./swagger.yaml'], 
 };
 
 const swaggerSpec = swaggerJsdoc(options);
 
-app.get('/api-docs.json', (req,res) => {
+app.get('/api-docs', (req,res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
@@ -87,11 +87,11 @@ app.listen(port, () => {
 
 
 // Termina il server dopo che i test sono stati eseguiti
-if (process.env.NODE_ENV !== 'test') {
+/*if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
-}
+}*/
 
 // Exporta l'app per i test
 module.exports = app;
