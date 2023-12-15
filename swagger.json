@@ -18,7 +18,7 @@
         "/register":{
             "post": {
                 "summary": "/register",
-                "description": "Aggiunge dati registrazione al db",
+                "description": "Form registrazione",
                 "requestBody": {
                   "content": {
                     "application/json": {
@@ -41,7 +41,38 @@
               "summary": "registrazione"
         },
         "/login":{
-            
+            "get":{
+                "summary": "/login",
+                "description": "form login",
+                "responses": {
+                    "200" : {
+                        "description": "logged in"
+                    }
+                }
+            },
+            "post": {
+                "summary": "/login",
+                "description": "check user on db",
+                "requestBody": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/user"
+                        }
+                      }
+                    },
+                    "description": "user da loggare"
+                  },
+                  "responses": {
+                    "401": {
+                      "description": "invalid credentials"
+                    },
+                    "500": {
+                      "description": "error in login"
+                    }
+                  }
+            },
+            "summary": "gestione login"
         },
         "/home":{
             
