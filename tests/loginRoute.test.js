@@ -32,7 +32,7 @@ describe('Test del middleware tokenChecker', () => {
     // Richiedi una rotta protetta utilizzando il token
     const protectedRouteResponse = await request(app)
       .get('/protected')
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `${token}`);
 
     // Verifica che la rotta protetta ritorni uno stato 200
     expect(protectedRouteResponse.status).toBe(200);
