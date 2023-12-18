@@ -3,6 +3,9 @@ const app = require('../app');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 
+// Token valido
+const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImEiLCJpYXQiOjE3MDI5MTM1OTF9.JEXJTutloyJlTXP2PSEECuWXvEGgVdgEmOsWLb_DHDY';
+
 describe('Test del middleware tokenChecker', () => {
   // Pulisce il database prima di ogni test
   beforeEach(async () => {
@@ -17,22 +20,10 @@ describe('Test del middleware tokenChecker', () => {
       password: hashedPassword,
     });
 
-    // Effettua l'accesso e ottieni il token
-    const loginCredentials = {
-      username: 'utente_protetto',
-      password: 'password_sicura',
-    };
-
-    const loginResponse = await request(app)
-      .post('/login')
-      .send(loginCredentials);
-
-    const token = loginResponse.body.token;
-
-    // Richiedi una rotta protetta utilizzando il token
+    // Richiedi una rotta protetta utilizzando il token valido
     const protectedRouteResponse = await request(app)
       .get('/protected')
-      .set('Authorization', `${token}`);
+      .set('Authorization', `${validToken}`);
 
     // Verifica che la rotta protetta ritorni uno stato 200
     expect(protectedRouteResponse.status).toBe(200);

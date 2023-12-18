@@ -16,7 +16,7 @@ router.put('/:shoeId', tokenChecker, async (req, res) => {
       return res.status(404).json({ message: 'Scarpa non trovata' });
     }
 
-    res.json({ message: 'Scarpa aggiornata con successo', updatedShoe });
+    res.status(200).json({ message: 'Scarpa aggiornata con successo', updatedShoe });
   } catch (error) {
     console.error('Errore durante l\'aggiornamento della scarpa:', error);
     res.status(500).json({ message: 'Errore durante l\'aggiornamento della scarpa', error: error.message });
