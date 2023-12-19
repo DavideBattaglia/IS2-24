@@ -1,3 +1,4 @@
+//app.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -80,18 +81,16 @@ app.get('/api-docs', (req,res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
 });
-
+/*
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
-});
+});*/
 
-
-// Termina il server dopo che i test sono stati eseguiti
-/*if (process.env.NODE_ENV !== 'test') {
+if (require.main === module) {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
-}*/
+}
 
 // Exporta l'app per i test
 module.exports = app;

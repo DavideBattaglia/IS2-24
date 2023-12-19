@@ -4,7 +4,9 @@ const app = require('../app');
 const Shoe = require('../models/shoe');
 
 // Token valido
-const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImEiLCJpYXQiOjE3MDI5MTM1OTF9.JEXJTutloyJlTXP2PSEECuWXvEGgVdgEmOsWLb_DHDY';
+require('dotenv').config();
+const validToken = process.env.VALID_TOKEN;
+
 
 describe('Test della rotta /deleteShoe', () => {
   beforeEach(async () => {
