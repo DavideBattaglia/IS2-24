@@ -1,0 +1,176 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+       "version": "1.0",
+       "title": "is2-24",
+       "description": "API for shoe sellings",
+       "license": {
+          "name": "MIT",
+          "url": "https://github.com/apiaryio/polls-api/blob/master/LICENSE"
+       }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "paths": {
+        "/register":{
+            "post": {
+                "summary": "/register",
+                "description": "Form registrazione",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/user"
+                      }
+                    }
+                  },
+                  "description": "user da creare"
+                },
+                "responses": {
+                  "201": {
+                    "description": "User registered successfully"
+                  },
+                  "400": {
+                    "description": "user o pwd richiesti"
+                  }
+                }
+              },
+              "summary": "registrazione"
+        },
+        "/login":{
+            "get":{
+                "summary": "/login",
+                "description": "form login",
+                "responses": {
+                    "200" : {
+                        "description": "logged in"
+                    }
+                }
+            },
+            "post": {
+                "summary": "/login",
+                "description": "check user on db",
+                "requestBody": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/user"
+                        }
+                      }
+                    },
+                    "description": "user da loggare"
+                  },
+                  "responses": {
+                    "401": {
+                      "description": "invalid credentials"
+                    },
+                    "500": {
+                      "description": "error in login"
+                    }
+                  }
+            },
+            "summary": "gestione login"
+        },
+        "/home":{
+            
+        },
+        "/vetrina":{
+            "get":{
+                "summary": "/vetrina",
+                "description": "visualizzza tutte le scarpe",
+                "responses":{
+                    "500":{
+                        "description": "errore nella visualizzazione"
+                    }
+                }
+            },
+            "delete":{
+                "summary": "/vetrina",
+                "description": "rimuovi una scarpa",
+                "responses": {
+                    "200" :{
+                        "description": "cancellazione riuscita"
+                    },
+                    "400" :{
+                        "description": "errore nella cancellazione"
+                    }
+                }
+            },
+            "summary": "vetrina"
+        },
+        "/aggiungi":{
+            "post":{
+                "summary":"/aggiongi",
+                "description": "posta scarpa",
+                "requestBody": {
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/shoe"
+                        }
+                      }
+                    },
+                    "description": "scarpa da postare"
+                  },
+                  "responses": {
+                    "201":{
+                        "description":"scarpa inserita correttamente"
+                    },
+                    "500": {
+                      "description": "errore nell'inserimento"
+                    }
+                  }
+            },
+            "summary":"aggiunta scarpa"
+        },
+        "/logout":{
+            "get": {
+                "summary": "/logout",
+                "description": "Cancella dati sessione e visualizza pagina home",
+                "responses": {
+                  "200": {
+                    "description": "Logout effettuato."
+                  }
+                }
+              },
+              "summary": "Logout"
+        }
+    },
+    "components": {
+        "schemas": {
+            "user": {
+                "type": "object",
+                "required": [
+                    "username",
+                    "password"
+                ],
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "shoe": {
+                "type": "object",
+                "requried": [
+                    "brend",
+                    "model"
+                ],
+                "properties": {
+                    "brand": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+ }

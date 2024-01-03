@@ -14,7 +14,9 @@ const updateShoeRoute = require('./routes/updateShoeRoute');
 const modificaRoute = require('./routes/modificaRoute'); 
 const tokenChecker = require('./middleware/tokenChecker');
 
-const swaggerJsdoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
+
 
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
@@ -82,6 +84,8 @@ app.get('/api-docs', (req,res) => {
   res.send(swaggerSpec);
 });
 /*
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });*/
