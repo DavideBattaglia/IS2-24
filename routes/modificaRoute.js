@@ -14,7 +14,7 @@ router.get('/:shoeId', (req, res) => {
     }
 
     // Simula il recupero della scarpa dal database
-    //const shoe = { id: shoeId, brand: 'Nike', model: 'Air Max' };
+    const shoe = { id: shoeId, brand: 'Nike', model: 'Air Max' };
 
     // Verifica se la scarpa è stata trovata
     if (!shoe) {
