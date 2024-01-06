@@ -1,3 +1,4 @@
+//app.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -60,24 +61,25 @@ app.get('/aggiungi', (req, res) => {
   res.render('aggiungi');
 });
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 /*
 app.get('/protected', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
 });*/
 
+/*
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
-});
+});*/
 
-
-// Termina il server dopo che i test sono stati eseguiti
-/*if (process.env.NODE_ENV !== 'test') {
+if (require.main === module) {
   app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
   });
-}*/
+}
 
 // Exporta l'app per i test
 module.exports = app;

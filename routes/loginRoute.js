@@ -26,6 +26,7 @@ router.post('/', async (req, res) => {
     // Generate a JWT token and send it as a response
     const token = jwt.sign({ username: user.username }, secretKey);
     res.json({ token });
+    
   } catch (error) {
     console.error('Error in login:', error);
     res.status(500).json({ message: 'Error in login' });

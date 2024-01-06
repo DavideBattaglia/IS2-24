@@ -1,9 +1,11 @@
+
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const dotenv = require('dotenv');
 dotenv.config();
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
 const tokenChecker = function(req, res, next) {
+	
 	console.log("Chiave segreta:", process.env.SECRET_KEY);
 
 	// check header or url parameters or post parameters for token

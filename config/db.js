@@ -14,7 +14,8 @@ const getDbUrl = () => {
   }
 
   // Imposta l'URL del database per l'ambiente di sviluppo (predefinito)
-  return process.env.DEVELOPMENT_DB_URL || 'mongodb://localhost:27017/punk';
+  return process.env.DEVELOPMENT_DB_URL;
+  ///return process.env.DEVELOPMENT_DB_URL || 'mongodb://localhost:27017/punk';
 };
 
 mongoose.connect(getDbUrl())
