@@ -1,40 +1,43 @@
 const request = require('supertest');
-const app = require('../app');  // Assicurati di importare correttamente il tuo file principale dell'app
+const app = require('../app');
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
-describe('POST /login', () => {
-  it('should respond with a JWT token on successful login', async () => {
-    const userCredentials = {
-      username: 'exampleUser',
-      password: 'examplePassword',
-    };
+// Token valido
+require('dotenv').config();
+const validToken = process.env.VALID_TOKEN;
 
-    // Supponiamo che tu abbia un utente di esempio nel tuo database
-    // Puoi creare un utente di esempio prima di eseguire questo test
-    // o modificare le credenziali dell'utente in base al tuo ambiente di sviluppo
-
-    const response = await request(app)
-      .post('/login')
-      .send(userCredentials)
-      .expect('Content-Type', /json/)
-      .expect(200);
-
-    // Verifica che la risposta contenga un token JWT
-    expect(response.body).toHaveProperty('token');
+describe('Test del middleware tokenChecker', () => {
+  // Pulisce il database prima di ogni test
+  beforeEach(async () => {
+    await User.deleteMany();
   });
 
-  it('should respond with a 401 status on unsuccessful login', async () => {
-    const invalidCredentials = {
-      username: 'nonexistentUser',
-      password: 'invalidPassword',
-    };
+  it('Dovrebbe proteggere una rotta richiedendo un token valido', async () => {
+    // Crea un utente nel database
+    const hashedPassword = await bcrypt.hash('password_sicura', 10);
+    await User.create({
+      username: 'utente_protetto',
+      password: hashedPassword,
+    });
 
-    const response = await request(app)
-      .post('/login')
-      .send(invalidCredentials)
-      .expect('Content-Type', /json/)
-      .expect(401);
+    // Richiedi una rotta protetta utilizzando il token valido
+    const protectedRouteResponse = await request(app)
+      .get('/protected')
+      .set('Authorization', `${validToken}`);
 
-    // Verifica che la risposta contenga il messaggio corretto
-    expect(response.body).toHaveProperty('message', 'Invalid credentials');
+    // Verifica che la rotta protetta ritorni uno stato 200
+    expect(protectedRouteResponse.status).toBe(200);
   });
+
+  it('Dovrebbe gestire una richiesta senza token restituendo uno stato 401', async () => {
+    // Richiedi una rotta protetta senza fornire un token valido
+    const protectedRouteResponse = await request(app)
+      .get('/protected');
+
+    // Verifica che la rotta protetta ritorni uno stato 401
+    expect(protectedRouteResponse.status).toBe(401);
+  });
+
+  // Aggiungi ulteriori test se necessario
 });
