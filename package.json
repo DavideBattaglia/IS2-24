@@ -1,7 +1,7 @@
 {
   "name": "21nov",
   "version": "1.0.0",
-  "description": "",
+  "description": "Batty code\r npm install express jsonwebtoken body-parser dotenv bcrypt",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -24,5 +24,16 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "supertest": "^6.3.3"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavideBattaglia/IS2-24.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DavideBattaglia/IS2-24/issues"
+  },
+  "homepage": "https://github.com/DavideBattaglia/IS2-24#readme"
 }
