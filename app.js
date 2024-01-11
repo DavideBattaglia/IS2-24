@@ -12,6 +12,7 @@ const addShoeRoute = require('./routes/addshoeRoute');
 const deleteShoeRoute = require('./routes/deleteShoeRoute');
 const updateShoeRoute = require('./routes/updateShoeRoute');
 const modificaRoute = require('./routes/modificaRoute'); 
+const adminRoute = require('./routes/adminRoute');
 const tokenChecker = require('./middleware/tokenChecker');
 
 const swaggerUi = require('swagger-ui-express');
@@ -42,7 +43,7 @@ app.use('/addshoe', addShoeRoute);
 app.use('/deleteShoe', deleteShoeRoute);
 app.use('/updateshoe', updateShoeRoute);
 app.use('/modifica', modificaRoute);
-
+app.use('/admin', adminRoute);
 
 // Your other routes here...
 app.get('/home', (req, res) => {
@@ -56,6 +57,10 @@ app.get('/logout', (req, res) => {
 app.get('/vetrina', (req, res) => {
   res.render('vetrina');
 });
+
+app.get('/adminpage', (req,res) => {
+  res.render('adminpage');
+})
 
 app.get('/aggiungi', (req, res) => {
   res.render('aggiungi');
