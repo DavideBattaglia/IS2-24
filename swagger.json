@@ -1,176 +1,711 @@
 {
     "openapi": "3.0.0",
     "info": {
-       "version": "1.0",
-       "title": "is2-24",
-       "description": "API for shoe sellings",
-       "license": {
-          "name": "MIT",
-          "url": "https://github.com/apiaryio/polls-api/blob/master/LICENSE"
-       }
+      "version": "1.0.0",
+      "title": "Documentazione API for shoe sellings",
+      "description": "Documentazione delle API fornite per visualizzare e comprare scarpe"
     },
-    "servers": [
-        {
-            "url": "http://localhost:3000"
-        }
-    ],
     "paths": {
-        "/register":{
+        "/login": {
+            "get": {
+              "summary": "Pagina di login",
+              "description": "Visualizza la pagina di login.",
+              "responses": {
+                "200": {
+                  "description": "Pagina di login visualizzata correttamente"
+                }
+              }
+            },
             "post": {
-                "summary": "/register",
-                "description": "Form registrazione",
-                "requestBody": {
+              "summary": "Effettua il login",
+              "description": "Effettua il login dell'utente.",
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "ref": "/components/schemas/User"
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Login riuscito",
                   "content": {
                     "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/user"
+                      "example": {
+                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9[...]"
                       }
                     }
-                  },
-                  "description": "user da creare"
+                  }
                 },
-                "responses": {
-                  "201": {
-                    "description": "User registered successfully"
-                  },
-                  "400": {
-                    "description": "user o pwd richiesti"
+                "401": {
+                  "description": "Credenziali non valide",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Invalid credentials"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Errore durante il login",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Error in login"
+                      }
+                    }
                   }
                 }
-              },
-              "summary": "registrazione"
+              }
+            }
         },
-        "/login":{
-            "get":{
-                "summary": "/login",
-                "description": "form login",
-                "responses": {
-                    "200" : {
-                        "description": "logged in"
-                    }
+        "/register": {
+            "get": {
+              "summary": "Pagina di registrazione",
+              "description": "Visualizza la pagina di registrazione.",
+              "responses": {
+                "200": {
+                  "description": "Pagina di registrazione visualizzata correttamente"
                 }
+              }
             },
             "post": {
-                "summary": "/login",
-                "description": "check user on db",
-                "requestBody": {
-                    "content": {
-                      "application/json": {
-                        "schema": {
-                          "$ref": "#/components/schemas/user"
-                        }
-                      }
-                    },
-                    "description": "user da loggare"
-                  },
-                  "responses": {
-                    "401": {
-                      "description": "invalid credentials"
-                    },
-                    "500": {
-                      "description": "error in login"
+              "summary": "Registra un nuovo utente",
+              "description": "Registra un nuovo utente nel sistema.",
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "ref": "/components/schemas/User"
                     }
-                  }
-            },
-            "summary": "gestione login"
-        },
-        "/home":{
-            
-        },
-        "/vetrina":{
-            "get":{
-                "summary": "/vetrina",
-                "description": "visualizzza tutte le scarpe",
-                "responses":{
-                    "500":{
-                        "description": "errore nella visualizzazione"
-                    }
-                }
-            },
-            "delete":{
-                "summary": "/vetrina",
-                "description": "rimuovi una scarpa",
-                "responses": {
-                    "200" :{
-                        "description": "cancellazione riuscita"
-                    },
-                    "400" :{
-                        "description": "errore nella cancellazione"
-                    }
-                }
-            },
-            "summary": "vetrina"
-        },
-        "/aggiungi":{
-            "post":{
-                "summary":"/aggiongi",
-                "description": "posta scarpa",
-                "requestBody": {
-                    "content": {
-                      "application/json": {
-                        "schema": {
-                          "$ref": "#/components/schemas/shoe"
-                        }
-                      }
-                    },
-                    "description": "scarpa da postare"
-                  },
-                  "responses": {
-                    "201":{
-                        "description":"scarpa inserita correttamente"
-                    },
-                    "500": {
-                      "description": "errore nell'inserimento"
-                    }
-                  }
-            },
-            "summary":"aggiunta scarpa"
-        },
-        "/logout":{
-            "get": {
-                "summary": "/logout",
-                "description": "Cancella dati sessione e visualizza pagina home",
-                "responses": {
-                  "200": {
-                    "description": "Logout effettuato."
                   }
                 }
               },
-              "summary": "Logout"
+              "responses": {
+                "201": {
+                  "description": "Utente registrato con successo",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "User registered successfully"
+                      }
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Richiesta non valida",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Username and password are required"
+                      }
+                    }
+                  }
+                },
+                "409": {
+                  "description": "Conflitto, username già in uso",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Username already in use"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Errore durante la registrazione",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Error in user registration"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/adminpage": {
+            "get": {
+              "summary": "Visualizza tutti gli Utenti",
+              "description": "Visualizza tutti gli utenti del sistema (protetto dal tokenChecker e isAdmin).",
+              "responses": {
+                "200": {
+                  "description": "Elenco degli Utenti",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "userList": [
+                          {
+                            "username": "utente1",
+                            "isAdmin": false
+                          },
+                          {
+                            "username": "utente2",
+                            "isAdmin": true
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Nessun utente trovato",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Nessun utente trovato"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Errore nella visualizzazione degli utenti",
+                  "content": {
+                    "application/json": {
+                      "example": {
+                        "message": "Errore nella visualizzazione degli utenti"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "/home": {
+            "get": {
+              "summary": "Pagina Home",
+              "description": "Visualizza la pagina principale dell'applicazione.",
+              "responses": {
+                "200": {
+                  "description": "Pagina Home visualizzata correttamente",
+                  "content": {
+                    
+                  }
+                }
+              }
+            }
+          },
+        "/protected": {
+        "get": {
+          "summary": "Accesso a una risorsa protetta",
+          "description": "Accesso a una risorsa protetta richiedendo un token valido.",
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Accesso riuscito",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Accesso riuscito"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Accesso non autorizzato",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": "Accesso non autorizzato"
+                  }
+                }
+              }
+            }
+          }
         }
+      },
+      "/vetrina/shoe": {
+          "get": {
+            "summary": "Visualizzazione Scarpe in Vetrina",
+            "description": "Visualizza tutte le scarpe nella vetrina (protetto dal tokenChecker).",
+            "responses": {
+              "200": {
+                "description": "Elenco delle scarpe visualizzato correttamente",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "ref": "/components/schemas/Shoe"
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Nessuna scarpa trovata",
+                "content": {
+                  "application/json": {
+                    "example": {
+                      "message": "Nessuna scarpa trovata"
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Errore nella visualizzazione delle scarpe",
+                "content": {
+                  "application/json": {
+                    "example": {
+                      "message": "Errore nella visualizzazione delle scarpe"
+                    }
+                  }
+                }
+              }
+            }
+        }
+      },
+      "/vetrina/modifica/{shoeId}": {
+        "get": {
+          "summary": "Pagina Aggiornamento Scarpa",
+          "description": "Visualizza la pagina di aggiornamento di una scarpa nella vetrina.",
+          "parameters": [
+            {
+              "name": "shoeId",
+              "in": "path",
+              "description": "ID della scarpa da aggiornare",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Pagina di aggiornamento visualizzata correttamente",
+              "content": {
+                "text/html": {
+                  "example": "<html>...</html>"
+                }
+              }
+            },
+            "400": {
+              "description": "ID della scarpa non fornito",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "ID della scarpa non fornito"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Scarpa non trovata",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Scarpa non trovata"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore nella rotta di modifica",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Errore nella rotta di modifica",
+                    "error": "Dettagli dell'errore"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/updateShoe/{shoeId}": {
+        "put": {
+          "summary": "Aggiorna Scarpa",
+          "description": "Aggiorna una scarpa esistente nel database (protetto dal tokenChecker).",
+          "parameters": [
+            {
+              "name": "shoeId",
+              "in": "path",
+              "description": "ID della scarpa da aggiornare",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "Dati per l'aggiornamento della scarpa",
+                  "properties": {
+                    "brand": {
+                      "type": "string",
+                      "description": "Nuova marca della scarpa"
+                    },
+                    "model": {
+                      "type": "string",
+                      "description": "Nuovo modello della scarpa"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Nuova descrizione della scarpa"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Nuovo prezzo della scarpa"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Scarpa aggiornata con successo",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Scarpa aggiornata con successo",
+                    "updatedShoe": {
+                      "schema": {
+                        "ref": "/components/schemas/Shoe"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Scarpa non trovata",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Scarpa non trovata"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore durante l'aggiornamento della scarpa",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Errore durante l'aggiornamento della scarpa"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/aggiungi/addshoe": {
+        "post": {
+          "summary": "Aggiunge una nuova scarpa",
+          "security": [
+            {
+              "BearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "brand": {
+                      "type": "string",
+                      "description": "Marca della scarpa",
+                      "example": "Nike",
+                      "required": true
+                    },
+                    "model": {
+                      "type": "string",
+                      "description": "Modello della scarpa",
+                      "example": "Air Max"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Descrizione della scarpa",
+                      "example": "Scarpe da corsa leggere"
+                    },
+                    "price": {
+                      "type": "number",
+                      "description": "Prezzo della scarpa",
+                      "example": 129.99
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Scarpa aggiunta con successo",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Shoe"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore del server"
+            }
+          }
+        }
+      }
+    ,
+      "/vetrina/cart/{shoeId}": {
+        "post": {
+          "summary": "Aggiungi Prodotto al Carrello",
+          "description": "Aggiunge un prodotto al carrello dell'utente (protetto dal tokenChecker).",
+          "parameters": [
+            {
+              "name": "shoeId",
+              "in": "path",
+              "description": "ID della scarpa da aggiungere al carrello",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Prodotto aggiunto al carrello con successo",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "userId": "123",
+                    "shoeId": "456",
+                    "_id": "789",
+                    "createdAt": "2022-01-09T12:00:00.000Z"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore durante l'aggiunta al carrello",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "success": false,
+                    "message": "Errore durante l'aggiunta al carrello."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/vetrina/deleteShoe/{shoeId}": {
+        "delete": {
+          "summary": "Elimina Scarpa",
+          "description": "Elimina una scarpa dal database (protetto dal tokenChecker).",
+          "parameters": [
+            {
+              "name": "shoeId",
+              "in": "path",
+              "description": "ID della scarpa da eliminare",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Scarpa eliminata con successo",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Scarpa eliminata con successo",
+                    "deletedShoe": {
+                      "_id": "123",
+                      "brand": "Nike",
+                      "model": "Air Max",
+                      "description": "Scarpe sportive",
+                      "price": 100
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Scarpa non trovata",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Scarpa non trovata"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore durante l'eliminazione della scarpa",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Errore durante l'eliminazione della scarpa"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/carrello": {
+        "get": {
+          "summary": "Ottieni Scarpe nel Carrello",
+          "description": "Ottiene tutte le scarpe presenti nel carrello di un utente specifico (protetto dal tokenChecker).",
+          "responses": {
+            "200": {
+              "description": "Scarpe nel Carrello ottenute con successo",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "ref": "/components/schemas/Cart"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Errore durante la richiesta al carrello",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "success": false,
+                    "message": "Errore durante la richiesta al carrello."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+            "summary": "Elimina Elementi dal Carrello",
+            "description": "Elimina tutti gli elementi presenti nel carrello dell'utente autenticato (protetto dal tokenChecker).",
+            "responses": {
+              "200": {
+                "description": "Elementi del Carrello eliminati con successo",
+                "content": {
+                  "application/json": {
+                    "example": {
+                      "success": true,
+                      "message": "Tutti gli elementi del carrello sono stati eliminati con successo."
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Errore durante l'eliminazione del carrello",
+                "content": {
+                  "application/json": {
+                    "example": {
+                      "success": false,
+                      "message": "Errore durante l'eliminazione del carrello."
+                    }
+                  }
+                }
+              }
+            }
+          }
+      },
+      "/logout": {
+        "get": {
+          "summary": "Pagina Logout",
+          "description": "Visualizza la pagina di logout.",
+          "responses": {
+            "200": {
+              "description": "Pagina Logout visualizzata correttamente",
+              "content": {
+                "text/html": {
+                  "example": "<html>...</html>"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "components": {
         "schemas": {
-            "user": {
-                "type": "object",
-                "required": [
-                    "username",
-                    "password"
-                ],
-                "properties": {
-                    "username": {
-                        "type": "string"
-                    },
-                    "password": {
-                        "type": "string"
-                    }
+            "User": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "description": "Nome utente"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "Password dell'utente"
+                },
+                "isAdmin": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Flag che indica se l'utente è un amministratore"
                 }
+              }
             },
-            "shoe": {
+            "Shoe": {
                 "type": "object",
-                "requried": [
-                    "brend",
-                    "model"
-                ],
                 "properties": {
-                    "brand": {
-                        "type": "string"
-                    },
-                    "model": {
-                        "type": "string"
-                    }
+                  "brand": {
+                    "type": "string",
+                    "required": true,
+                    "description": "Marca delle scarpe"
+                  },
+                  "model": {
+                    "type": "string",
+                    "required": false,
+                    "description": "Modello delle scarpe"
+                  },
+                  "description": {
+                    "type": "string",
+                    "required": false,
+                    "description": "Descrizione delle scarpe"
+                  },
+                  "price": {
+                    "type": "number",
+                    "required": false,
+                    "description": "Prezzo delle scarpe"
+                  }
                 }
+              },
+              "Cart": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "description": "ID dell'utente",
+                    "required": true
+                  },
+                  "shoeId": {
+                    "type": "string",
+                    "description": "ID della scarpa",
+                    "required": true
+                  }
+                }
+              }
+        }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
             }
         }
-    }
- }
+}
+
+
+  
+  
