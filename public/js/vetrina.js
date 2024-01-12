@@ -1,3 +1,4 @@
+// vetrina.js
 const token = localStorage.getItem('token');
 console.log('TOKEN vetrina.js:', token);
 
@@ -62,7 +63,41 @@ function handleDelete(shoeId) {
         console.error('Errore nell\'eliminazione della scarpa:', error);
     });
 }
+function handleAddToCart(shoeId) {
+    const token = localStorage.getItem('token');
+    console.log('TOKEN in handleAddToCart:', token);
 
+    if (token) {
+        // Esegui la richiesta POST a /addCart/:shoeId con il token nell'header
+        fetch(`addCart/${shoeId}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `${token}`,
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            // Assume che la risposta sia JSON e la restituisce come oggetto
+            return response.json();
+        })
+        .then(data => {
+            // Manipola i dati come desiderato, ad esempio, mostrando un messaggio di successo
+            console.log('Aggiunto al carrello con successo:', data.message);
+        })
+        .catch(error => {
+            console.error('Errore durante l\'aggiunta al carrello:', error);
+        });
+    } else {
+        // Token non presente, gestisci la situazione come desideri
+        console.error('Token non presente. Effettuare l\'accesso.');
+        // Esempio: Reindirizza l'utente alla pagina di accesso
+        // window.location.href = '/login';
+    }
+}
 function handleEdit(shoeId) {
     // Reindirizza l'utente alla pagina di aggiornamento con l'ID della scarpa come parametro
     window.location.href = `/modifica/${shoeId}`;
@@ -120,6 +155,15 @@ function renderShoes(shoesData) {
             deleteButton.addEventListener('click', () => handleDelete(shoe._id));
             deleteCell.appendChild(deleteButton);
             shoeRow.appendChild(deleteCell);
+
+            // Aggiungi la cella per il pulsante Aggiungi al Carrello
+            const addToCartCell = document.createElement('td');
+            const addToCartButton = document.createElement('button');
+            addToCartButton.textContent = 'Aggiungi al Carrello';
+            addToCartButton.classList.add('add-to-cart-button'); // Aggiungi classe CSS per stile
+            addToCartButton.addEventListener('click', () => handleAddToCart(shoe._id));
+            addToCartCell.appendChild(addToCartButton);
+            shoeRow.appendChild(addToCartCell);
 
             tableBody.appendChild(shoeRow);
         });

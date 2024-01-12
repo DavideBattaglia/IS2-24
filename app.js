@@ -13,6 +13,9 @@ const deleteShoeRoute = require('./routes/deleteShoeRoute');
 const updateShoeRoute = require('./routes/updateShoeRoute');
 const modificaRoute = require('./routes/modificaRoute'); 
 const adminRoute = require('./routes/adminRoute');
+const addCartRoute = require('./routes/addCartRoute');
+const cartRoute = require('./routes/cartRoute');
+const deleteCartRoute = require('./routes/deleteCartRoute');
 const tokenChecker = require('./middleware/tokenChecker');
 
 const swaggerUi = require('swagger-ui-express');
@@ -44,6 +47,9 @@ app.use('/deleteShoe', deleteShoeRoute);
 app.use('/updateshoe', updateShoeRoute);
 app.use('/modifica', modificaRoute);
 app.use('/admin', adminRoute);
+app.use('/addCart', addCartRoute);
+app.use('/cart', cartRoute);
+app.use('/deleteCart', deleteCartRoute);
 
 // Your other routes here...
 app.get('/home', (req, res) => {
@@ -56,6 +62,10 @@ app.get('/logout', (req, res) => {
 
 app.get('/vetrina', (req, res) => {
   res.render('vetrina');
+});
+
+app.get('/carrello', (req, res) => {
+  res.render('carrello');
 });
 
 app.get('/adminpage', (req,res) => {
