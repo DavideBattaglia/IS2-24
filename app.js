@@ -12,16 +12,17 @@ const addShoeRoute = require('./routes/addshoeRoute');
 const deleteShoeRoute = require('./routes/deleteShoeRoute');
 const updateShoeRoute = require('./routes/updateShoeRoute');
 const modificaRoute = require('./routes/modificaRoute'); 
+const adminRoute = require('./routes/adminRoute');
 const tokenChecker = require('./middleware/tokenChecker');
 
-const swaggerUi = require('swagger-ui-express')
-const swaggerDocument = require('./swagger.json')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 
 const secretKey = process.env.SECRET_KEY || 'defaultSecretKey';
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 app.use(express.static('javascript'));
 app.use(express.static('views'));
@@ -42,7 +43,7 @@ app.use('/addshoe', addShoeRoute);
 app.use('/deleteShoe', deleteShoeRoute);
 app.use('/updateshoe', updateShoeRoute);
 app.use('/modifica', modificaRoute);
-
+app.use('/admin', adminRoute);
 
 // Your other routes here...
 app.get('/home', (req, res) => {
@@ -57,43 +58,16 @@ app.get('/vetrina', (req, res) => {
   res.render('vetrina');
 });
 
+app.get('/adminpage', (req,res) => {
+  res.render('adminpage');
+})
+
 app.get('/aggiungi', (req, res) => {
   res.render('aggiungi');
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-/*
-app.get('/protected', tokenChecker, (req, res) => {
-  res.render('protected', { user: req.loggedUser });
-});*/
-
-<<<<<<< HEAD
-const options = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Shoe sellings',
-      version: '1.0.0',
-    },
-  },
-  apis: ['./src/routes*.js','./swagger.yaml'], 
-};
-
-const swaggerSpec = swaggerJsdoc(options);
-
-app.get('/api-docs', (req,res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
-});
-=======
->>>>>>> 2bab63fc7652a56c8514bd7fb4bd1c4511b81b25
-/*
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});*/
 
 if (require.main === module) {
   app.listen(port, () => {
