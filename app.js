@@ -68,9 +68,6 @@ app.get('/aggiungi', (req, res) => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
 
 if (require.main === module) {
   app.listen(port, () => {
