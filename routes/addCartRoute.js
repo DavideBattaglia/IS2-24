@@ -12,7 +12,7 @@ router.post('/:shoeId', tokenChecker, async (req, res) => {
 
         console.log("Informazioni utente:", req.loggedUser);
         // Estrai l'ID dell'utente dal tokenChecker
-        const userId = req.params.userId;
+        const userId = req.loggedUser.userId;
 
         console.log("userId:", userId);
         console.log("shoeId:", shoeId);
