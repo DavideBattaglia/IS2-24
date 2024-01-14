@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
       isAdmin: user.isAdmin,
     }, secretKey);
 
-    res.json({ token });
+    res.status(200).json({ token });
     
   } catch (error) {
     console.error('Error in login:', error);

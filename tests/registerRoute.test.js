@@ -29,7 +29,7 @@ describe('Test della rotta /register', () => {
       });
   });
 
-  it('Dovrebbe gestire la mancanza di username o password restituendo uno stato 400', (done) => {
+  it('Dovrebbe gestire la mancanza di username restituendo uno stato 400', (done) => {
     const invalidUser = {
       username: '',
       password: 'password_sicura',
