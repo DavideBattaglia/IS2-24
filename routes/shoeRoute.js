@@ -13,7 +13,7 @@ router.get('/', tokenChecker, async (req, res) => {
       return res.status(404).json({ message: 'Nessuna scarpa trovata' });
     }
 
-    res.json(shoes);
+    res.status(200).json(shoes);
     console.log('Scarpe protette');
   } catch (error) {
     console.error('Errore nella visualizzazione delle scarpe:', error.message);
