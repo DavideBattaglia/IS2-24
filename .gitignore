@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 .env
-mode_modules
-=======
-node_modules
->>>>>>> 95b4a12ec27a46d01ec6a0322a930ae5cff5a23f
+node_modules/

@@ -6,63 +6,86 @@
       "description": "Documentazione delle API fornite per visualizzare e comprare scarpe"
     },
     "paths": {
-        "/login": {
-            "get": {
-              "summary": "Pagina di login",
-              "description": "Visualizza la pagina di login.",
-              "responses": {
-                "200": {
-                  "description": "Pagina di login visualizzata correttamente"
+      "/login": {
+        "post": {
+          "summary": "Authenticate user and generate JWT token",
+          "operationId": "loginUser",
+          "requestBody": {
+            "description": "User credentials for authentication",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "description": "User's username",
+                      "example": "admin"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "User's password",
+                      "example": "admin"
+                    }
+                  },
+                  "required": ["username", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "token": {
+                        "type": "string",
+                        "description": "JWT token for authentication"
+                      }
+                    }
+                  }
                 }
               }
             },
-            "post": {
-              "summary": "Effettua il login",
-              "description": "Effettua il login dell'utente.",
-              "requestBody": {
-                "required": true,
-                "content": {
-                  "application/json": {
-                    "schema": {
-                      "ref": "/components/schemas/User"
+            "401": {
+              "description": "Invalid credentials",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "Error message"
+                      }
                     }
                   }
                 }
-              },
-              "responses": {
-                "200": {
-                  "description": "Login riuscito",
-                  "content": {
-                    "application/json": {
-                      "example": {
-                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9[...]"
-                      }
-                    }
-                  }
-                },
-                "401": {
-                  "description": "Credenziali non valide",
-                  "content": {
-                    "application/json": {
-                      "example": {
-                        "message": "Invalid credentials"
-                      }
-                    }
-                  }
-                },
-                "500": {
-                  "description": "Errore durante il login",
-                  "content": {
-                    "application/json": {
-                      "example": {
-                        "message": "Error in login"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "description": "Error message"
                       }
                     }
                   }
                 }
               }
             }
-        },
+          }
+        }
+      },
         "/register": {
             "get": {
               "summary": "Pagina di registrazione",
@@ -224,7 +247,7 @@
           }
         }
       },
-      "/vetrina/shoe": {
+      "/shoe": {
           "get": {
             "summary": "Visualizzazione Scarpe in Vetrina",
             "description": "Visualizza tutte le scarpe nella vetrina (protetto dal tokenChecker).",
@@ -262,7 +285,7 @@
             }
         }
       },
-      "/vetrina/modifica/{shoeId}": {
+      "/modifica/{shoeId}": {
         "get": {
           "summary": "Pagina Aggiornamento Scarpa",
           "description": "Visualizza la pagina di aggiornamento di una scarpa nella vetrina.",
@@ -403,7 +426,7 @@
           }
         }
       },
-      "/aggiungi/addshoe": {
+      "/addshoe": {
         "post": {
           "summary": "Aggiunge una nuova scarpa",
           "security": [
@@ -462,7 +485,7 @@
         }
       }
     ,
-      "/vetrina/cart/{shoeId}": {
+      "/cart/{shoeId}": {
         "post": {
           "summary": "Aggiungi Prodotto al Carrello",
           "description": "Aggiunge un prodotto al carrello dell'utente (protetto dal tokenChecker).",
@@ -505,7 +528,7 @@
           }
         }
       },
-      "/vetrina/deleteShoe/{shoeId}": {
+      "/deleteShoe/{shoeId}": {
         "delete": {
           "summary": "Elimina Scarpa",
           "description": "Elimina una scarpa dal database (protetto dal tokenChecker).",
@@ -561,7 +584,7 @@
           }
         }
       },
-      "/carrello": {
+      "/cart": {
         "get": {
           "summary": "Ottieni Scarpe nel Carrello",
           "description": "Ottiene tutte le scarpe presenti nel carrello di un utente specifico (protetto dal tokenChecker).",
