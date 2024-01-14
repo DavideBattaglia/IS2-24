@@ -30,6 +30,32 @@ describe('Test del middleware tokenChecker', () => {
     expect(protectedRouteResponse.status).toBe(200);
   });
 
+  it('Dovrebbe proteggere una rotta richiedendo un token valido', async () => {
+    // Crea un utente nel database
+    const hashedPassword = await bcrypt.hash('password_sicura', 10);
+    await User.init({
+      username: 'user_nonvalido',
+      password: hashedPassword,
+    });
+
+    // Richiedi una rotta protetta utilizzando il token valido
+    const protectedRouteResponse = await request(app)
+      .get('/protected')
+      .set('Authorization', `${validToken}`);
+
+    // Verifica che la rotta protetta ritorni uno stato 200
+    expect(protectedRouteResponse.status).toBe(200);
+  });
+
+  it('Deve ritornarmi 401 se le credenziali sono sbagliate', async () => {
+    const response = await request(app)
+      .post('/login')
+      .send({ username: 'UserNnValido', password: 'PassNnValida' });
+
+    expect(response.status).toBe(401);
+    //expect(response.body).toHaveProperty('message', 'Invalid credentials');
+  });
+
   it('Dovrebbe gestire una richiesta senza token restituendo uno stato 401', async () => {
     // Richiedi una rotta protetta senza fornire un token valido
     const protectedRouteResponse = await request(app)
