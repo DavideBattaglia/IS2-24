@@ -3,8 +3,18 @@
     "info": {
       "version": "1.0.0",
       "title": "Documentazione API for shoe sellings",
-      "description": "Documentazione delle API fornite per visualizzare e comprare scarpe"
+      "description": "Documentazione delle API fornite per visualizzare e comprare scarpe",
+      "license": {
+        "name" : "MIT",
+        "url" : "https://github.com/apiaryio/polls-api/blob/master/LICENSE"
+      }     
     },
+    "servers": [
+      {
+        "url": "http://localhost:4000/",
+        "description": "Localhost"
+      }
+    ],
     "paths": {
       "/login": {
         "post": {
@@ -16,20 +26,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "username": {
-                      "type": "string",
-                      "description": "User's username",
-                      "example": "admin"
-                    },
-                    "password": {
-                      "type": "string",
-                      "description": "User's password",
-                      "example": "admin"
-                    }
-                  },
-                  "required": ["username", "password"]
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -100,9 +97,8 @@
           "requestBody": {
             "content": {
               "application/json": {
-                "example": {
-                  "username": "new user",
-                  "password": "newuserpassword123"
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -134,7 +130,7 @@
           }
         }
       },
-      "/adminpage": {
+      "/admin": {
            "get": {
               "summary": "Visualizza tutti gli Utenti",
               "description": "Visualizza tutti gli utenti del sistema (protetto dal tokenChecker e isAdmin).",
@@ -178,7 +174,12 @@
                     }
                   }
                 }
-              }
+              },
+              "security": [
+                {
+                  "JWTAuth": []
+                }
+              ]
             }
           },
         "/home": {
@@ -201,7 +202,7 @@
           "description": "Accesso a una risorsa protetta richiedendo un token valido.",
           "security": [
             {
-              "BearerAuth": []
+              "JWTAuth": []
             }
           ],
           "responses": {
@@ -232,28 +233,14 @@
           "get": {
             "summary": "Visualizzazione Scarpe in Vetrina",
             "description": "Visualizza tutte le scarpe nella vetrina (protetto dal tokenChecker).",
-            "security":{
-                "bearerAuth": []
-            },
             "responses": {
               "200": {
                 "description": "Elenco delle scarpe visualizzato correttamente",
                 "content": {
                   "application/json": {
-                    "example": [
-                      {
-                        "brand": "Nike",
-                        "model": "Air Max",
-                        "description": "Comfortable running shoes",
-                        "price": 120.99
-                      },
-                      {
-                        "brand": "Adidas",
-                        "model": "Ultra Boost",
-                        "description": "High-performance running shoes",
-                        "price": 150.49
-                      }
-                    ]
+                    "schema": {
+                      "$ref": "#/components/schemas/Shoe_list"
+                    }
                   }
                 }
               },
@@ -277,13 +264,23 @@
                   }
                 }
               }
-            }
+            },
+            "security": [
+              {
+                "JWTAuth": []
+              }
+            ]
         }
       },
       "/modifica/{shoeId}": {
         "get": {
           "summary": "Pagina Aggiornamento Scarpa",
           "description": "Visualizza la pagina di aggiornamento di una scarpa nella vetrina.",
+          "security": [
+            {
+              "JWTAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "shoeId",
@@ -342,6 +339,11 @@
         "put": {
           "summary": "Aggiorna Scarpa",
           "description": "Aggiorna una scarpa esistente nel database (protetto dal tokenChecker).",
+          "security": [
+            {
+              "JWTAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "shoeId",
@@ -391,7 +393,7 @@
                     "message": "Scarpa aggiornata con successo",
                     "updatedShoe": {
                       "schema": {
-                        "#ref": "/components/schemas/Shoe"
+                        "$ref": "#/components/schemas/Shoe"
                       }
                     }
                   }
@@ -426,7 +428,7 @@
           "summary": "Aggiunge una nuova scarpa",
           "security": [
             {
-              "BearerAuth": []
+              "JWTAuth": []
             }
           ],
           "requestBody": {
@@ -480,10 +482,15 @@
         }
       }
     ,
-      "/cart/{shoeId}": {
+      "/addCart/{shoeId}": {
         "post": {
           "summary": "Aggiungi Prodotto al Carrello",
           "description": "Aggiunge un prodotto al carrello dell'utente (protetto dal tokenChecker).",
+          "security": [
+            {
+              "JWTAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "shoeId",
@@ -527,6 +534,11 @@
         "delete": {
           "summary": "Elimina Scarpa",
           "description": "Elimina una scarpa dal database (protetto dal tokenChecker).",
+          "security": [
+            {
+              "JWTAuth": []
+            }
+          ],
           "parameters": [
             {
               "name": "shoeId",
@@ -583,13 +595,18 @@
         "get": {
           "summary": "Ottieni Scarpe nel Carrello",
           "description": "Ottiene tutte le scarpe presenti nel carrello di un utente specifico (protetto dal tokenChecker).",
+          "security": [
+            {
+              "JWTAuth": []
+            }
+          ],
           "responses": {
             "200": {
               "description": "Scarpe nel Carrello ottenute con successo",
               "content": {
                 "application/json": {
                   "schema": {
-                    "ref": "/components/schemas/Cart"
+                    "$ref": "#/components/schemas/Cart"
                   }
                 }
               }
@@ -606,10 +623,17 @@
               }
             }
           }
-        },
+        }
+      },
+      "/deleteCart": {
         "delete": {
             "summary": "Elimina Elementi dal Carrello",
             "description": "Elimina tutti gli elementi presenti nel carrello dell'utente autenticato (protetto dal tokenChecker).",
+            "security": [
+              {
+                "JWTAuth": []
+              }
+            ],
             "responses": {
               "200": {
                 "description": "Elementi del Carrello eliminati con successo",
@@ -640,6 +664,11 @@
         "get": {
           "summary": "Pagina Logout",
           "description": "Visualizza la pagina di logout.",
+          "security": [
+            {
+              "JWTAuth": []
+            }
+          ],
           "responses": {
             "200": {
               "description": "Pagina Logout visualizzata correttamente",
@@ -655,6 +684,12 @@
     },
     "components": {
         "schemas": {
+            "Shoe_list": {
+              "type": "array",
+              "items" : {
+                "$ref": "#/components/schemas/Shoe"
+              } 
+            },
             "User": {
               "type": "object",
               "properties": {
@@ -713,16 +748,19 @@
                   }
                 }
               }
-        }
         },
         "securitySchemes": {
-            "BearerAuth": {
-            "type": "http",
-            "scheme": "bearer",
-            "bearerFormat": "JWT"
-            }
+          "JWTAuth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization",
+            "description": "JWT Token for authentication"
+          }
         }
+      }
 }
+        
+
 
 
   

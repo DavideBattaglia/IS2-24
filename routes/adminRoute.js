@@ -17,7 +17,7 @@ router.get('/', tokenChecker,isAdmin, async (req, res) => {
     // Log specifico per ottenere solo le informazioni desiderate
     console.log('Utenti protetti:', users);
 
-    res.json(users);
+    res.status(200).json(users);
     console.log('Utenti protetti');
   } catch (error) {
     console.error('Errore nella visualizzazione degli utenti:', error.message);
