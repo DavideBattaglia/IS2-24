@@ -8,6 +8,30 @@ test('app module should be defined', () => {
 
 test('GET / should return 200',async  () => {
   await request(app)
-    .get('/home')
+    .get('/logout')
+    .expect(200);
+});
+
+test('GET / should return 200',async  () => {
+  await request(app)
+    .get('/vetrina')
+    .expect(200);
+});
+
+test('GET / should return 200',async  () => {
+  await request(app)
+    .get('/carrello')
+    .expect(200);
+});
+
+test('GET / should return 200',async  () => {
+  await request(app)
+    .get('/adminpage')
+    .expect(200);
+});
+
+test('GET / should return 200',async  () => {
+  await request(app)
+    .get('/aggiungi')
     .expect(200);
 });
