@@ -1,9 +1,9 @@
-# IS2-24
+# Progetto Ingeneria del Software
 
 ## Descrizione
-Progetto IS2-24 con una struttura organizzata delle cartelle e dei file.
+Progetto Ingeneria del Software II (appello gennaio 2024)
 
-## Struttura ad Albero
+## Struttura del Progetto
 ```plaintext
 IS2-24
 |-- config                  # Configurazioni del progetto
