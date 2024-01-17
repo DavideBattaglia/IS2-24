@@ -12,7 +12,6 @@ function executeModification() {
     const priceInput = document.getElementById('price');
     const shoeIdInput = document.getElementById('shoeId');
 
-    // Recupera l'ID della scarpa dalla query string (URL)
     // Estrai l'ID della scarpa dal percorso
     const shoeId = window.location.pathname.split('/').pop();
     console.log('id della scarpa (ClientModifica.js):', shoeId);
@@ -22,11 +21,11 @@ function executeModification() {
         const updatedBrand = brandInput.value;
         const updatedModel = modelInput.value;
         const updatedDescription = descriptionInput.value;
-        const updatedPrice = parseFloat(priceInput.value); // Converto il prezzo in un numero (float)
+        const updatedPrice = parseFloat(priceInput.value); 
 
-        // Esegui la richiesta PUT (o PATCH) alla rotta protetta con il token nell'header
+        // Esegui la richiesta PUT  alla rotta protetta con il token nell'header
         fetch(`/updateshoe/${shoeId}`, {
-            method: 'PUT', // Puoi anche usare 'PATCH' a seconda della tua implementazione del server
+            method: 'PUT', 
             headers: {
                 'Authorization': `${token}`,
                 'Content-Type': 'application/json',
@@ -43,7 +42,6 @@ function executeModification() {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             console.log('Scarpa modificata con successo.');
-            // Puoi gestire la risposta come desideri, ad esempio, aggiornando l'interfaccia utente.
             // Reindirizza l'utente a Vetrina dopo la modifica
             window.location.href = '/vetrina';
         })
@@ -52,7 +50,4 @@ function executeModification() {
         });
     } else {
         console.error('Token o ID scarpa non presenti.');
-        // Gestisci la situazione come desideri, ad esempio, reindirizzando l'utente
-        // window.location.href = '/login';
-    }
-}
+}}

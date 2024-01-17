@@ -17,12 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
-            // Assume che la risposta sia JSON e la restituisce come oggetto
             return response.json();
         })
         .then(data => {
-            // Manipola i dati come desiderato, ad esempio, aggiornando l'interfaccia utente
             console.log('Dati carrello ricevuti:', data);
             renderCartItemsTable(data);
         })
@@ -57,10 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     } else {
-        // Token non presente, gestisci la situazione come desideri
         console.error('Token non presente. Effettuare l\'accesso.');
-        // Esempio: Reindirizza l'utente alla pagina di accesso
-        // window.location.href = '/login';
     }
 
     function renderCartItemsTable(cartItemsData) {
@@ -73,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Intestazione della tabella
             const tableHeader = document.createElement('thead');
             const headerRow = document.createElement('tr');
-            const headerColumns = ['Marca', 'Modello', 'Descrizione', 'Prezzo']; // Aggiungi le colonne desiderate
+            const headerColumns = ['Marca', 'Modello', 'Descrizione', 'Prezzo'];
     
             headerColumns.forEach(columnText => {
                 const headerCell = document.createElement('th');

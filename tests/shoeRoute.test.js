@@ -36,10 +36,6 @@ describe('Test della rotta /shoe', () => {
     // Verifica che la risposta sia uno stato 200
     expect(response.status).toBe(200);
 
-    // Verifica che la risposta contenga le scarpe create
-    /*expect(response.body.length).toBe(2);
-    expect(response.body[0].brand).toBe('Nike');
-    expect(response.body[1].brand).toBe('Adidas');*/
   });
 
   test('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
@@ -56,6 +52,4 @@ describe('Test della rotta /shoe', () => {
     // Verifica che la risposta sia uno stato 500
     expect(response.status).toBe(500);
   });
-
-  // Aggiungi ulteriori test se necessario
 });

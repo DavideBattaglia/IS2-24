@@ -8,6 +8,5 @@ router.get('/', tokenChecker, (req, res) => {
   res.render('protected', { user: req.loggedUser });
 });
 
-// Aggiungi altre route protette se necessario...
 
 module.exports = router;

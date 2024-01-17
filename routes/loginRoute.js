@@ -16,14 +16,12 @@ router.post('/', async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    // Search for the user in the database
     const user = await User.findOne({ username, password });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Generate a JWT token and send it as a response
     const token = jwt.sign({
       userId: user._id,
       username: user.username,

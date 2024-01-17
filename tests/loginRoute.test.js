@@ -49,7 +49,6 @@ describe('Test del middleware tokenChecker', () => {
       .send({ username: 'UserNnValido', password: 'PassNnValida' });
 
     expect(response.status).toBe(401);
-    //expect(response.body).toHaveProperty('message', 'Invalid credentials');
   });
 
   test('Dovrebbe gestire una richiesta senza token restituendo uno stato 401', async () => {
@@ -60,6 +59,4 @@ describe('Test del middleware tokenChecker', () => {
     // Verifica che la rotta protetta ritorni uno stato 401
     expect(protectedRouteResponse.status).toBe(401);
   });
-
-  // Aggiungi ulteriori test se necessario
 });

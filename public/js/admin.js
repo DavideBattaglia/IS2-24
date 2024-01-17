@@ -15,12 +15,9 @@ if (token) {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
-        // Assume che la risposta sia JSON e la restituisce come oggetto
         return response.json();
     })
     .then(data => {
-        // Manipola i dati come desiderato, ad esempio, aggiornando l'interfaccia utente
         console.log('Dati utenti ricevuti:', data);
         renderUsersTable(data);
     })
@@ -28,10 +25,7 @@ if (token) {
         console.error('Errore nella richiesta alla rotta protetta per gli utenti:', error);
     });
 } else {
-    // Token non presente, gestisci la situazione come desideri
     console.error('Token non presente. Effettuare l\'accesso.');
-    // Esempio: Reindirizza l'utente alla pagina di accesso
-    // window.location.href = '/login';
 }
 
 function renderUsersTable(usersData) {
@@ -39,7 +33,7 @@ function renderUsersTable(usersData) {
 
     if (usersData && Array.isArray(usersData)) {
         const userTable = document.createElement('table');
-        userTable.classList.add('user-table'); // Aggiungi una classe per lo stile (CSS)
+        userTable.classList.add('user-table'); 
 
         // Intestazione della tabella
         const tableHeader = document.createElement('thead');
@@ -72,7 +66,7 @@ function renderUsersTable(usersData) {
         });
 
         userTable.appendChild(tableBody);
-        userTableContainer.innerHTML = ''; // Pulisci il contenitore prima di aggiungere la nuova tabella
+        userTableContainer.innerHTML = ''; 
         userTableContainer.appendChild(userTable);
     } else {
         console.error('Dati sugli utenti non validi.');

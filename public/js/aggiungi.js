@@ -15,7 +15,7 @@ function addShoe() {
       brand: brand,
       model: model,
       description: description,
-      price: parseFloat(price), // Converto il prezzo in un numero (float)
+      price: parseFloat(price), 
     };
   
     if (token) {
@@ -34,16 +34,12 @@ function addShoe() {
         }
   
         console.log('Scarpa aggiunta con successo.');
-        // Puoi gestire la risposta qui se necessario
       })
       .catch(error => {
         console.error('Errore nella richiesta alla rotta protetta:', error);
       });
     } else {
-      // Token non presente, gestisci la situazione come desideri
       console.error('Token non presente. Effettuare l\'accesso.');
-      // Esempio: Reindirizza l'utente alla pagina di accesso
-      // window.location.href = '/login';
     }
   }
   

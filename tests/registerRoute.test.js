@@ -70,5 +70,4 @@ describe('Test della rotta /register', () => {
     });
   });
 
-  // Aggiungi ulteriori test se necessario
 });

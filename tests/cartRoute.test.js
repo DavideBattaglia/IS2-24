@@ -29,7 +29,7 @@ describe('test rotta cart', () => {
   });
 
   test('Dovrebbe ottenere tutte le scarpe nel carrello di un utente', async () => {
-    // Supponiamo che tu abbia già un utente con un token valido
+
 
     // Creare un oggetto carrello nel database associato all'utente
     const cartItem = new Cart({
@@ -45,12 +45,9 @@ describe('test rotta cart', () => {
     expect(response.status).toBe(200);
     expect(response.body).toBeInstanceOf(Array);
 
-    // Verifica che i dettagli delle scarpe siano presenti nella risposta
-    //expect(response.body.length).toBeGreaterThan(0); 
   });
 
   test('Dovrebbe gestire correttamente gli errori durante la richiesta al carrello', async () => {
-    // Supponiamo che tu abbia un token non valido 
 
     const response = await request(app)
       .get('/cart')

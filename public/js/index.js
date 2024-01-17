@@ -16,8 +16,6 @@ if (token) {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
-        // Assume che la risposta sia HTML e la restituisca come testo
         return response.text();
     })
     .then(html => {
@@ -28,7 +26,6 @@ if (token) {
         console.error('Errore nella richiesta alla rotta protetta:', error);
     });
 } else {
-    // Token non presente, gestisci la situazione come desideri
     console.error('Token non presente. Effettuare l\'accesso.');
     // Esempio: Reindirizza l'utente alla pagina di accesso
     //window.location.href = '/login';

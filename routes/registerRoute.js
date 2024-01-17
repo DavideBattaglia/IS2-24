@@ -16,13 +16,11 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ message: 'Username and password are required' });
     }
 
-    // Check if the user already exists in the database
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: 'Username already in use' });
     }
 
-    // Create a new user using the User model
     const newUser = new User({ username, password });
     await newUser.save();
 
