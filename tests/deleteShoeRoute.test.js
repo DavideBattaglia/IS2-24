@@ -1,6 +1,7 @@
 //test/deleteShoeRoute.test.js
 const request = require('supertest');
 const app = require('../app');
+const mongoose = require('mongoose');
 const Shoe = require('../models/shoe');
 
 // Token valido
@@ -9,9 +10,23 @@ const validToken = process.env.VALID_TOKEN;
 
 
 describe('Test della rotta /deleteShoe', () => {
-  beforeEach(async () => {
-    await Shoe.deleteMany();
+
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
+
   });
+
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await Shoe.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
+  });
+
+  
 
   it('Dovrebbe eliminare una scarpa', async () => {
     // Crea una scarpa nel database

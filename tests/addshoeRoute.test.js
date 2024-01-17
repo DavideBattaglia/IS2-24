@@ -1,17 +1,29 @@
 const request = require('supertest');
 const app = require('../app');
 const Shoe = require('../models/shoe');
+const mongoose = require('mongoose');
 
 require('dotenv').config();
 const validToken = process.env.VALID_TOKEN;
 
 describe('Test della rotta di aggiunta scarpa', () => {
   // Pulisce il database prima di ogni test
-  beforeEach(async () => {
-    await Shoe.deleteMany();
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
+
   });
 
-  it('Dovrebbe aggiungere una nuova scarpa', async () => {
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await Shoe.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
+  });
+
+  test('Dovrebbe aggiungere una nuova scarpa', async () => {
     
 
     // Dati per la nuova scarpa
@@ -38,11 +50,9 @@ describe('Test della rotta di aggiunta scarpa', () => {
     expect(response.body.price).toBe(newShoeData.price);
   });
 
-  it('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
+  test('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
     // Simula un errore interno durante l'aggiunta della scarpa
     jest.spyOn(Shoe.prototype, 'save').mockRejectedValueOnce(new Error('Errore interno'));
-  
-
   
     // Effettua una richiesta alla rotta di aggiunta scarpa includendo il token valido
     const response = await request(app)

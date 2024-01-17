@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../app');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 
 // Token valido
 require('dotenv').config();
@@ -9,8 +10,19 @@ const validToken = process.env.VALID_TOKEN;
 
 describe('Test del middleware tokenChecker', () => {
   // Pulisce il database prima di ogni test
-  beforeEach(async () => {
-    await User.deleteMany();
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
+
+  });
+
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await User.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
   });
 
   it('Dovrebbe proteggere una rotta richiedendo un token valido', async () => {

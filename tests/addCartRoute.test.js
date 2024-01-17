@@ -5,27 +5,27 @@
 const request = require('supertest');
 const express = require('express');
 const mongoose = require('mongoose');
+const Cart = require('../models/cart');
 const app = require('../app');
 
 require('dotenv').config();
 const validToken = process.env.VALID_TOKEN;
 
-
-// Replace 'your-mongo-uri' with your actual MongoDB connection string
-const mongoURI = process.env.TEST_DB_URL;
-
-beforeAll(async () => {
-  await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-});
-
-
-
-
 describe('POST /addCart/:shoeId', () => {
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
+
+  });
+
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await Cart.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
+  });
   /*it('should add a product to the cart', async () => {
     // Mock the tokenChecker middleware
     jest.mock('../middleware/tokenChecker', () => (req, res, next) => {

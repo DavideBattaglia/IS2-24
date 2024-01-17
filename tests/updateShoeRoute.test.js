@@ -1,17 +1,28 @@
 const request = require('supertest');
 const app = require('../app');
 const Shoe = require('../models/shoe');
+const mongoose = require('mongoose');
 // Token valido
 require('dotenv').config();
 const validToken = process.env.VALID_TOKEN;
 
- beforeEach(async () => {
-    await Shoe.deleteMany();
-  });
 
 describe('Test della rotta /updateShoe', () => {
   // Pulisce il database prima di ogni test
- 
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
+
+  });
+
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await Shoe.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
+  });
 
   it('Dovrebbe aggiornare una scarpa', async () => {
     // Crea una scarpa nel database
