@@ -8,7 +8,6 @@ const router = express.Router();
 router.get('/', (req, res) => {
   res.render('register');
 });
-
 router.post('/', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -26,11 +25,13 @@ router.post('/', async (req, res) => {
     const newUser = new User({ username, password });
     await newUser.save();
 
-    res.status(201).json({ message: 'User registered successfully' });
+    // Redirect to the login page after successful registration
+    res.redirect('/login');
   } catch (error) {
     console.error('Error in user registration:', error);
     res.status(500).json({ message: 'Error in user registration' });
   }
 });
+
 
 module.exports = router;
