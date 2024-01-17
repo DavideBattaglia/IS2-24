@@ -8,6 +8,12 @@ test('app module should be defined', () => {
 
 test('GET / should return 200',async  () => {
   await request(app)
+    .get('/home')
+    .expect(200);
+});
+
+test('GET / should return 200',async  () => {
+  await request(app)
     .get('/logout')
     .expect(200);
 });
