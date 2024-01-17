@@ -28,7 +28,7 @@ describe('test rotta cart', () => {
     console.log("Database connection closed");
   });
 
-  it('Dovrebbe ottenere tutte le scarpe nel carrello di un utente', async () => {
+  test('Dovrebbe ottenere tutte le scarpe nel carrello di un utente', async () => {
     // Supponiamo che tu abbia già un utente con un token valido
 
     // Creare un oggetto carrello nel database associato all'utente
@@ -49,7 +49,7 @@ describe('test rotta cart', () => {
     //expect(response.body.length).toBeGreaterThan(0); 
   });
 
-  it('Dovrebbe gestire correttamente gli errori durante la richiesta al carrello', async () => {
+  test('Dovrebbe gestire correttamente gli errori durante la richiesta al carrello', async () => {
     // Supponiamo che tu abbia un token non valido 
 
     const response = await request(app)

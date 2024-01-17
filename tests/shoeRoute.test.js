@@ -23,7 +23,7 @@ describe('Test della rotta /shoe', () => {
     console.log("Database connection closed");
   });
 
-  it('Dovrebbe restituire tutte le scarpe', async () => {
+  test('Dovrebbe restituire tutte le scarpe', async () => {
     // Crea alcune scarpe nel database
     await Shoe.create({ brand: 'Nike', model: 'Air Max', description: "test nike", price: 100 });
     await Shoe.create({ brand: 'Adidas', model: 'Superstar', description: "test adidas", price: 100 });
@@ -42,7 +42,7 @@ describe('Test della rotta /shoe', () => {
     expect(response.body[1].brand).toBe('Adidas');*/
   });
 
-  it('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
+  test('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
     // Simula un errore interno nel recupero delle scarpe
     jest.spyOn(Shoe, 'find').mockImplementationOnce(() => {
       throw new Error('Errore interno');

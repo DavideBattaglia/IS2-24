@@ -26,7 +26,7 @@ mongoose.connect(getDbUrl())
     console.log('Error in DB connection: ' + err);
   });
 
-const db = mongoose.connection;
+const db =  mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
 db.once('open', () => {
   console.log('MongoDB Connection Opened.');

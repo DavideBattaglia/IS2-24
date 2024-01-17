@@ -28,7 +28,7 @@ describe('Test della rotta /deleteShoe', () => {
 
   
 
-  it('Dovrebbe eliminare una scarpa', async () => {
+  test('Dovrebbe eliminare una scarpa', async () => {
     // Crea una scarpa nel database
     const shoe = await Shoe.create({ brand: 'Nike', model: 'Air Max' });
 
@@ -47,7 +47,7 @@ describe('Test della rotta /deleteShoe', () => {
     expect(response.body.deletedShoe.model).toBe(shoe.model);
   });
 
-  it('Dovrebbe gestire una scarpa non trovata restituendo uno stato 404', async () => {
+  test('Dovrebbe gestire una scarpa non trovata restituendo uno stato 404', async () => {
     // ID non esistente
     const nonExistingShoeId = '60ae3eab045b7878982a036a';
 
@@ -60,7 +60,7 @@ describe('Test della rotta /deleteShoe', () => {
     expect(response.status).toBe(404);
   });
 
-  it('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
+  test('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
     // Simula un errore interno nell'eliminazione della scarpa
     jest.spyOn(Shoe, 'findOneAndDelete').mockImplementationOnce(() => {
       throw new Error('Errore interno');

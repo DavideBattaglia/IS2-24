@@ -15,7 +15,7 @@ describe('POST /addCart/:shoeId', () => {
   beforeAll(async () => {
     jest.setTimeout(8000);
     jest.unmock('mongoose');
-    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true});
     console.log('Database connected!');
 
   });
@@ -44,7 +44,7 @@ describe('POST /addCart/:shoeId', () => {
     expect(response.body.shoeId).toBe(shoeId);
   });*/
 
-  it('should handle errors during adding to the cart', async () => {
+  test('should handle errors during adding to the cart', async () => {
     // Mock the tokenChecker middleware
     jest.mock('../middleware/tokenChecker', () => (req, res, next) => {
       res.status(403).json({ success: false, message: 'Failed to authenticate token.' });

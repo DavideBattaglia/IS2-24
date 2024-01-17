@@ -25,7 +25,7 @@ describe('Test del middleware tokenChecker', () => {
     console.log("Database connection closed");
   });
 
-  it('Dovrebbe proteggere una rotta richiedendo un token valido', async () => {
+  test('Dovrebbe proteggere una rotta richiedendo un token valido', async () => {
     // Crea un utente nel database
     const hashedPassword = await bcrypt.hash('password_sicura', 10);
     await User.create({
@@ -43,7 +43,7 @@ describe('Test del middleware tokenChecker', () => {
   });
 
 
-  it('Deve ritornarmi 401 se le credenziali sono sbagliate', async () => {
+  test('Deve ritornarmi 401 se le credenziali sono sbagliate', async () => {
     const response = await request(app)
       .post('/login')
       .send({ username: 'UserNnValido', password: 'PassNnValida' });
@@ -52,7 +52,7 @@ describe('Test del middleware tokenChecker', () => {
     //expect(response.body).toHaveProperty('message', 'Invalid credentials');
   });
 
-  it('Dovrebbe gestire una richiesta senza token restituendo uno stato 401', async () => {
+  test('Dovrebbe gestire una richiesta senza token restituendo uno stato 401', async () => {
     // Richiedi una rotta protetta senza fornire un token valido
     const protectedRouteResponse = await request(app)
       .get('/protected');
