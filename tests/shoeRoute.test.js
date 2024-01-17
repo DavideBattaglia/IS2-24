@@ -14,8 +14,8 @@ describe('Test della rotta /shoe', () => {
 
   it('Dovrebbe restituire tutte le scarpe', async () => {
     // Crea alcune scarpe nel database
-    await Shoe.create({ brand: 'Nike', model: 'Air Max' });
-    await Shoe.create({ brand: 'Adidas', model: 'Superstar' });
+    await Shoe.create({ brand: 'Nike', model: 'Air Max', description: "test nike", price: 100 });
+    await Shoe.create({ brand: 'Adidas', model: 'Superstar', description: "test adidas", price: 100 });
 
     // Effettua una richiesta alla rotta /shoe includendo il token
     const response = await request(app)

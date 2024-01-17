@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const Shoe = require('../models/shoe');
-const tokenChecker = require('../middleware/tokenChecker'); // Assicurati di importare il middleware corretto
+const tokenChecker = require('../middleware/tokenChecker'); 
 
 // Definisci la rotta per aggiungere una scarpa (protetta dal tokenChecker)
 router.post('/', tokenChecker, async (req, res) => {

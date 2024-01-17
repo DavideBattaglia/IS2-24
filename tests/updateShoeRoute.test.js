@@ -5,15 +5,17 @@ const Shoe = require('../models/shoe');
 require('dotenv').config();
 const validToken = process.env.VALID_TOKEN;
 
-describe('Test della rotta /updateShoe', () => {
-  // Pulisce il database prima di ogni test
-  beforeEach(async () => {
+ beforeEach(async () => {
     await Shoe.deleteMany();
   });
 
+describe('Test della rotta /updateShoe', () => {
+  // Pulisce il database prima di ogni test
+ 
+
   it('Dovrebbe aggiornare una scarpa', async () => {
     // Crea una scarpa nel database
-    const shoe = await Shoe.create({ brand: 'Nike', model: 'Air Max' });
+    const shoe = await Shoe.create({ brand: 'Nike', model: 'Air Max', description: 'descr', price: 10 });
 
     // Dati per l'aggiornamento della scarpa
     const updatedData = { brand: 'Adidas', model: 'Superstar' };

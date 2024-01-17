@@ -15,7 +15,7 @@ describe('test rotta cart', () => {
     // Creare un oggetto carrello nel database associato all'utente
     const cartItem = new Cart({
       userId: '659c16e7054bd2780849a64c',
-      shoeId: '657c7a89e68168425272e2b6', // Sostituisci con un vero ID di scarpa
+      shoeId: '657c7a89e68168425272e2b6', 
     });
     await cartItem.save();
 
