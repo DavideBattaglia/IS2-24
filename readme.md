@@ -77,11 +77,11 @@ IS2-24
 |   `-- vetrina.ejs         # Pagina della vetrina
 
 ## File Principali
-- `.gitattributes`: Configurazione Git.
-- `.gitignore`: File e cartelle esclusi dal tracciamento di Git.
-- `app.js`: Server.
-- `jest.config.js`: Configurazione per Jest.
-- `package-lock.json`: Blocco delle versioni delle dipendenze npm.
-- `package.json`: Informazioni sul progetto e dipendenze.
-- `readme.md`: Questa pagina.
-- `swagger.json`: Documentazione della API Swagger.
+|-- .gitattributes          # Configurazione Git.
+|-- .gitignore              # File e cartelle esclusi dal tracciamento di Git.
+|-- app.js                  # Server.
+|-- jest.config.js          # Configurazione per Jest.
+|-- package-lock.json       # Blocco delle versioni delle dipendenze npm.
+|-- package.json            # Informazioni sul progetto e dipendenze.
+|-- readme.md               # Questa pagina.
+`-- swagger.json            # Documentazione della API Swagger.
