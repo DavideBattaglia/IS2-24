@@ -62,9 +62,6 @@ describe('GET /admin', () => {
       .set('Authorization', `${token}`)
       .expect(200)
       .expect('Content-Type', /json/);
-      //.then((response) => {
-        // Assicurati che la risposta contenga la lista degli utenti
-        //expect(response.body).toHaveLength(/* Numero degli utenti nel database */);
       });
   
   test('GET /admin with valid token and isAdmin false should return 403', async () => {

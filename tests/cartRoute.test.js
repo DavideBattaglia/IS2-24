@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../app');
+const mongoose = require('mongoose');
 const Cart = require('../models/cart');
 const Shoe = require('../models/shoe'); // Assicurati di importare correttamente il modello della scarpa
 const tokenChecker = require('../middleware/tokenChecker');
@@ -9,7 +10,25 @@ const validToken = process.env.VALID_TOKEN;
 
 
 describe('test rotta cart', () => {
-  it('Dovrebbe ottenere tutte le scarpe nel carrello di un utente', async () => {
+
+  let connection;
+
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
+
+  });
+
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await Cart.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
+  });
+
+  test('Dovrebbe ottenere tutte le scarpe nel carrello di un utente', async () => {
     // Supponiamo che tu abbia già un utente con un token valido
 
     // Creare un oggetto carrello nel database associato all'utente
@@ -30,7 +49,7 @@ describe('test rotta cart', () => {
     //expect(response.body.length).toBeGreaterThan(0); 
   });
 
-  it('Dovrebbe gestire correttamente gli errori durante la richiesta al carrello', async () => {
+  test('Dovrebbe gestire correttamente gli errori durante la richiesta al carrello', async () => {
     // Supponiamo che tu abbia un token non valido 
 
     const response = await request(app)

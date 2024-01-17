@@ -1,19 +1,30 @@
 const request = require('supertest');
 const app = require('../app');
 const Shoe = require('../models/shoe');
+const mongoose = require('mongoose');
 // Token valido
 require('dotenv').config();
 const validToken = process.env.VALID_TOKEN;
 
- beforeEach(async () => {
-    await Shoe.deleteMany();
-  });
 
 describe('Test della rotta /updateShoe', () => {
   // Pulisce il database prima di ogni test
- 
+  beforeAll(async () => {
+    jest.setTimeout(8000);
+    jest.unmock('mongoose');
+    connection = await mongoose.connect(process.env.TEST_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('Database connected!');
 
-  it('Dovrebbe aggiornare una scarpa', async () => {
+  });
+
+  afterAll(async () => {
+    // Pulisci il database dopo aver eseguito i test
+    await Shoe.deleteMany({});
+    mongoose.connection.close(true);
+    console.log("Database connection closed");
+  });
+
+  test('Dovrebbe aggiornare una scarpa', async () => {
     // Crea una scarpa nel database
     const shoe = await Shoe.create({ brand: 'Nike', model: 'Air Max', description: 'descr', price: 10 });
 
@@ -35,7 +46,7 @@ describe('Test della rotta /updateShoe', () => {
     expect(response.body.updatedShoe.model).toBe(updatedData.model);
   });
 
-  it('Dovrebbe gestire una scarpa non trovata restituendo uno stato 404', async () => {
+  test('Dovrebbe gestire una scarpa non trovata restituendo uno stato 404', async () => {
     // ID non esistente
     const nonExistingShoeId = '60ae3eab045b7878982a036a';
 
@@ -49,7 +60,7 @@ describe('Test della rotta /updateShoe', () => {
     expect(response.status).toBe(404);
   });
 
-  it('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
+  test('Dovrebbe gestire errori interni restituendo uno stato 500', async () => {
     // Simula un errore interno nell'aggiornamento della scarpa
     jest.spyOn(Shoe, 'findByIdAndUpdate').mockImplementationOnce(() => {
       throw new Error('Errore interno');
